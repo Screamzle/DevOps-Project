@@ -1,3 +1,3 @@
 # DevOps-Project
 
-Integrating Jira and GitHub
+Integrated Jira and GitHub
