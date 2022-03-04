@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Workout Plan App</title>
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <h1 class="logo">To Do List</h1>
+                <strong><nav>
+                    <ul class="menu">
+                        <li><a href="{{ url_for('signup') }}">Create Account</a></span>
+                    </ul>
+                {% block body %}
+                {% endblock body %}
+            </nav></strong>
+          </div>
+        </header>
+    </body>
+</html>

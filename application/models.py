@@ -1,4 +1,4 @@
-from flask_app import db
+from application import db
 from datetime import datetime
 
 # Table schema for users

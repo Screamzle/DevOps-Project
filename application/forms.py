@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, DateTimeField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from flask_app import db
-from flask_app.models import Users, Exercises
+from application import db
+from application.models import Users, Exercises
 
 # Create Account Form
 class CreateAccountForm(FlaskForm):
@@ -31,10 +31,4 @@ class CreateAccountForm(FlaskForm):
             DataRequired(),
             Email()
         ])
-
     submit = SubmitField('Create Account')
-
-    def check_username(self, user_name):
-
-
-    def check_email(self, email_address):
