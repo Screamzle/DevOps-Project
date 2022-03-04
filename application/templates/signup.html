@@ -1,19 +1,19 @@
 <html>
     <head>
-        <title>Create an Account</title>
+        <h1 class="title">Create an Account</h1>
     </head>
     <body>
         {% extends 'index.html' %}
         {% block body %}
         <div class='form'>
             {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class="notification is-danger">
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}              
-                </ul>
-            {% endif %}
+                {% if messages %}
+                    <ul class='notification is-danger'>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}              
+                    </ul>
+                {% endif %}
             {% endwith %}
             <h1>Create an Account</h1>
             <form method='POST' action='/signup'>
@@ -65,8 +65,6 @@
                     {% endif %}
                 <br>
                 {{ form.submit }}
-                <br>
-                {{ message }}
             </form>
         </div>
     </body>
