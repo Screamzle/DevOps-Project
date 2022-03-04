@@ -6,7 +6,17 @@
         {% extends 'index.html' %}
         {% block body %}
         <div class='form'>
-            <form method='POST' action=''>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="notification is-danger">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}              
+                </ul>
+            {% endif %}
+            {% endwith %}
+            <h1>Create an Account</h1>
+            <form method='POST' action='/signup'>
                 <br>
                 {{ form.hidden_tag() }}
                 {{ form.user_name.label }} {{ form.user_name }}

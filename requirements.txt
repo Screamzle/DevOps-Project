@@ -2,6 +2,7 @@ flask
 flask_sqlalchemy
 flask_wtf
 flask_testing
+flask-login
 wtforms
 pymysql
 selenium
