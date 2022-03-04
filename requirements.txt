@@ -8,3 +8,4 @@ pymysql
 selenium
 pytest
 pytest-cov
+email_validator

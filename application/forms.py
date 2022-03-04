@@ -35,12 +35,13 @@ class CreateAccountForm(FlaskForm):
 
 # LogIn Form
 class LogInForm(FlaskForm):
-    user_name = StringField('User Name: ',
+    email_address = StringField('Email Address: ',
         validators = [
             DataRequired(),
-            Length(min = 3, max = 15)
+            Email()
         ])
     password = PasswordField('Password: ',
         validators = [
             DataRequired()
         ])
+    submit = SubmitField('Sign in')
