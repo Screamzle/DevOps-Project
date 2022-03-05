@@ -87,6 +87,8 @@ def profile():
     
     # call forms
     updateform = UpdateAccountForm()
+    deleteform = DeleteAccountForm()
+
 
     errors = False
 
@@ -98,14 +100,14 @@ def profile():
             current_user.last_name = updateform.last_name.data
             current_user.email_address = updateform.last_name.data
             
-            # check if new username or email address already exist before committing changes
+            # check if new username or email address already exist before committing changes, as these must be unique in the database
             user_name = Users.query.filter_by(user_name=updateform.user_name.data).first()
             email_address = Users.query.filter_by(email_address=updateform.email_address.data).first()
-            if user_name: # if username taken, flash error and redirect
+            if user_name: # if username taken, flash error and redirect if error
                 flash('Username already in use')
                 errors = True
             
-            if email_address: #if email taken, flash error and redirect
+            if email_address: #if email taken, flash error and redirect if error
                 flash('Email address already in use')
                 errors = True
             
@@ -121,12 +123,14 @@ def profile():
         updateform.first_name.data = current_user.first_name
         updateform.last_name.data = current_user.last_name
         updateform.first_name.data = current_user.email_address
-
-    deleteform = DeleteAccountForm()
     
-    if deleteform 
+    if deleteform.is_submitted():
+        user = Users.query.filter_by(email_address=current_user.email_address)
+        db.session.delete(user)
+        db.session.commit()
+        return redirect(url_for('signup'))
 
-    return render_template('profile.html', first_name=current_user.first_name, last_name=current_user.last_name)
+    return render_template('profile.html')
 
 # create route to logout
 @routes.route('/logout')
