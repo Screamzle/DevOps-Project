@@ -29,7 +29,6 @@ def signup():
                 last_name=createform.last_name.data, 
                 email_address=createform.email_address.data
             )
-
             user_name = Users.query.filter_by(user_name=createform.user_name.data).first()
             email_address = Users.query.filter_by(email_address=createform.email_address.data).first()
 
