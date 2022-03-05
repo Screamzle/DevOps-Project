@@ -132,7 +132,7 @@ def logout():
     return redirect(url_for('routes.login'))
 
 # create route to add exercise
-@routes.route('/addexercise')
+@routes.route('/add_exercise', methods=['GET', 'POST'])
 @login_required
 def add_exercise():
     
@@ -142,12 +142,10 @@ def add_exercise():
         if form.validate_on_submit():
             exercise = Exercises(exercise_name=form.exercise_name.data, 
                 repetitions=form.repetitions.data,
-                first_name=form.first_name.data, 
                 sets=form.sets.data
             )
             db.session.add(exercise)
             db.session.commit()
             flash('Exercise has been added')
             return redirect(url_for('routes.add_exercise'))
-
     return render_template('add_exercise.html', form=form)
