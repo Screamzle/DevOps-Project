@@ -148,4 +148,5 @@ def add_exercise():
             db.session.commit()
             flash('Exercise has been added')
             return redirect(url_for('routes.add_exercise'))
+            
     return render_template('add_exercise.html', form=form)
