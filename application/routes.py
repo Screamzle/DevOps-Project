@@ -1,6 +1,6 @@
 from application import db
 from application.models import Users, Exercises, Workout_Plans
-from application.forms import CreateAccountForm, LogInForm, UpdateAccountForm, DeleteAccountForm, ChangePWForm
+from application.forms import CreateAccountForm, LogInForm, UpdateAccountForm, DeleteAccountForm, ChangePWForm, CreateExerciseForm
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
@@ -90,8 +90,6 @@ def profile():
     changepwform = ChangePWForm()
     deleteform = DeleteAccountForm()
 
-    errors = False
-
     if request.method == 'GET':
         updateform.user_name.data = current_user.user_name
         updateform.first_name.data = current_user.first_name
@@ -132,3 +130,24 @@ def profile():
 def logout():
     logout_user()
     return redirect(url_for('routes.login'))
+
+# create route to add exercise
+@routes.route('/addexercise')
+@login_required
+def add_exercise():
+    
+    form = CreateExerciseForm()
+
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            exercise = Exercises(exercise_name=form.exercise_name.data, 
+                repetitions=form.repetitions.data,
+                first_name=form.first_name.data, 
+                sets=form.sets.data
+            )
+            db.session.add(exercise)
+            db.session.commit()
+            flash('Exercise has been added')
+            return redirect(url_for('routes.add_exercise'))
+
+    return render_template('add_exercise.html', form=form)
