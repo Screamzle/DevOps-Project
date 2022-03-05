@@ -81,9 +81,51 @@ def login():
     return render_template('login.html', form=loginform)
 
 # create route to view profile
-@routes.route('/profile')
+@routes.route('/profile'methods=['GET', 'POST'])
 @login_required
 def profile():
+    
+    # call forms
+    updateform = UpdateAccountForm()
+
+    errors = False
+
+    if request.method == 'POST':
+        if updateform.validate_on_submit():
+            current_user.user_name = updateform.user_name.data
+            current_user.password = updateform.password.data
+            current_user.first_name = updateform.first_name.data
+            current_user.last_name = updateform.last_name.data
+            current_user.email_address = updateform.last_name.data
+            
+            # check if new username or email address already exist before committing changes
+            user_name = Users.query.filter_by(user_name=updateform.user_name.data).first()
+            email_address = Users.query.filter_by(email_address=updateform.email_address.data).first()
+            if user_name: # if username taken, flash error and redirect
+                flash('Username already in use')
+                errors = True
+            
+            if email_address: #if email taken, flash error and redirect
+                flash('Email address already in use')
+                errors = True
+            
+            if errors:
+                return redirect(url_for('routes.signup'))
+            else: 
+                db.session.commit()
+                return redirect(url_for('profile'))
+    
+    elif request.method == 'GET'
+        updateform.user_name.data = current_user.user_name
+        updateform.password.data = current_user.password
+        updateform.first_name.data = current_user.first_name
+        updateform.last_name.data = current_user.last_name
+        updateform.first_name.data = current_user.email_address
+
+    deleteform = DeleteAccountForm()
+    
+    if deleteform 
+
     return render_template('profile.html', first_name=current_user.first_name, last_name=current_user.last_name)
 
 # create route to logout
