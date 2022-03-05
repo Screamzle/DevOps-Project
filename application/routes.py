@@ -1,17 +1,20 @@
-from application import app, db
+from application import db
 from application.models import Users, Exercises, Workout_Plans
 from application.forms import CreateAccountForm, LogInForm
-from flask import render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import login_user, logout_user, login_required, current_user
+
+routes = Blueprint('routes', __name__)
 
 # create for homepage
-@app.route('/home')
-@app.route('/', methods=['GET', 'POST'])
+@routes.route('/home')
+@routes.route('/', methods=['GET', 'POST'])
 def homepage():
     return render_template('homepage.html')
 
 # create route for account creation
-@app.route('/signup', methods=['GET', 'POST'])
+@routes.route('/signup', methods=['GET', 'POST'])
 def signup():
 
     createform = CreateAccountForm()
@@ -39,15 +42,15 @@ def signup():
                 errors = True
             
             if errors:
-                return redirect(url_for('signup'))
+                return redirect(url_for('routes.signup'))
 
             db.session.add(user)
             db.session.commit()
-        return redirect(url_for('profile'))
+        return redirect(url_for('routes.profile'))
     return render_template('signup.html', form=createform)
 
 # create route to login
-@app.route('/login', methods=['GET', 'POST'])
+@routes.route('/login', methods=['GET', 'POST'])
 def login():
     
     loginform = LogInForm()
@@ -55,31 +58,37 @@ def login():
     errors = False
 
     if request.method == 'POST':
+
         if loginform.validate_on_submit():
-            user = Users(email_address=loginform.email_address.data, 
-                password=generate_password_hash(loginform.password.data, method='sha256'),
+            login = Users(email_address=loginform.email_address.data, 
+                password=loginform.password.data
             )
             
-            email_address = Users.query.filter_by(email_address=loginform.email_address.data).first()
-            password = Users.query.filter_by(password=loginform.password.data).first()
+            user = Users.query.filter_by(email_address=loginform.email_address.data).first()
 
             # check if the user actually exists
             # take the user-supplied password, hash it, and compare it to the hashed password in the database
-            if not email_address or password != user.password:
-                flash('Please check your username and password and try again')
+            if not user and check_password_hash(user.password, login.password):
+                flash('Please check your username/password and try again')
                 errors = True
 
             if errors:
-                return redirect(url_for('login')) # if the user doesn't exist or password is wrong, reload the page
-        return redirect(url_for('profile'))
+                return redirect(url_for('routes.login')) # if incorrect credentials, redirect back to login page
+            else:
+                login_user(user)
+                return redirect(url_for('routes.profile')) # if correct, go to user profile
+
     return render_template('login.html', form=loginform)
 
-# create route to logout
-@app.route('/logout')
-def logout():
-    return 'logout.html'
-
 # create route to view profile
-@app.route('/profile')
+@routes.route('/profile')
+@login_required
 def profile():
-    return 'profile.html'
+    return render_template('profile.html', first_name=current_user.first_name, last_name=current_user.last_name)
+
+# create route to logout
+@routes.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('routes.login'))

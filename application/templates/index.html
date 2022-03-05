@@ -16,15 +16,22 @@
                 <div class="container">
                     <div id="navbarMenuHeroA" class="navbar-menu">
                         <div class="navbar-end">
-                            <a href="{{ url_for('signup') }}" class="navbar-item">
+                            {% if not current_user.is_authenticated %}
+                            <a href="{{ url_for('routes.signup') }}" class="navbar-item">
                                 Create an Account
                             </a>
-                            <a href="{{ url_for('login') }}" class="navbar-item">
+                            <a href="{{ url_for('routes.login') }}" class="navbar-item">
                                 Login
                             </a>
-                            <a href="{{ url_for('logout') }}" class="navbar-item">
+                            {% endif %}
+                            {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('routes.profile') }}" class="navbar-item">
+                                Profile
+                            </a>
+                            <a href="{{ url_for('routes.logout') }}" class="navbar-item">
                                 Logout
                             </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>    

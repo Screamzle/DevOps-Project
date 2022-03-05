@@ -1,8 +1,9 @@
 from application import db
 from datetime import datetime
+from flask_login import UserMixin
 
 # Table schema for users
-class Users(db.Model):
+class Users(UserMixin, db.Model):
     user_ID = db.Column(db.Integer, primary_key=True) # PK
     user_name = db.Column(db.String(15), nullable=False, unique=True)# Username
     password = db.Column(db.String(100), nullable=False) # Password
@@ -12,6 +13,9 @@ class Users(db.Model):
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow) # Date and time of account creation
     # creating relationship with Workout Plans
     workout_plans = db.relationship('Workout_Plans', backref='user')
+
+    def get_id(self):
+           return (self.user_ID)
 
 # Table schema for exercises
 class Exercises(db.Model):
