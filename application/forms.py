@@ -53,10 +53,6 @@ class UpdateAccountForm(FlaskForm):
             DataRequired(),
             Length(min = 3, max = 15)
         ])
-    password = PasswordField('Password: ',
-        validators = [
-            DataRequired()
-        ])
     first_name = StringField('First Name: ',
         validators = [
             DataRequired(),
@@ -77,3 +73,8 @@ class UpdateAccountForm(FlaskForm):
 # Delete Account Form
 class DeleteAccountForm(FlaskForm):
     delete = SubmitField('Delete Account')
+
+# Change Password Form
+class ChangePWForm(FlaskForm):
+    password = PasswordField('Password: ')
+    change = SubmitField('Change Password')

@@ -6,6 +6,8 @@ import os
 
 db = SQLAlchemy()
 
+# create Flask factory app, must be run with flask run on terminal instead
+# must export FLASK_ENV=development and export FLASK_APP=application
 def create_app(): 
     app = Flask(__name__)
 
