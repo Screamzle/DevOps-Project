@@ -1,6 +1,6 @@
 from application import db
 from application.models import Users, Exercises, Workout_Plans
-from application.forms import CreateAccountForm, LogInForm
+from application.forms import CreateAccountForm, LogInForm, UpdateAccountForm, DeleteAccountForm
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
@@ -46,6 +46,7 @@ def signup():
 
             db.session.add(user)
             db.session.commit()
+            login_user(user)
         return redirect(url_for('routes.profile'))
     return render_template('signup.html', form=createform)
 
@@ -81,7 +82,7 @@ def login():
     return render_template('login.html', form=loginform)
 
 # create route to view profile
-@routes.route('/profile'methods=['GET', 'POST'])
+@routes.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
     
@@ -89,13 +90,12 @@ def profile():
     updateform = UpdateAccountForm()
     deleteform = DeleteAccountForm()
 
-
     errors = False
 
     if request.method == 'POST':
         if updateform.validate_on_submit():
             current_user.user_name = updateform.user_name.data
-            current_user.password = updateform.password.data
+            current_user.password = generate_password_hash(updateform.password.data, method='sha256')
             current_user.first_name = updateform.first_name.data
             current_user.last_name = updateform.last_name.data
             current_user.email_address = updateform.last_name.data
@@ -115,22 +115,22 @@ def profile():
                 return redirect(url_for('routes.signup'))
             else: 
                 db.session.commit()
-                return redirect(url_for('profile'))
+                return redirect(url_for('routes.profile'))
     
-    elif request.method == 'GET'
+    elif request.method == 'GET':
         updateform.user_name.data = current_user.user_name
         updateform.password.data = current_user.password
         updateform.first_name.data = current_user.first_name
         updateform.last_name.data = current_user.last_name
-        updateform.first_name.data = current_user.email_address
+        updateform.email_address.data = current_user.email_address
     
     if deleteform.is_submitted():
         user = Users.query.filter_by(email_address=current_user.email_address)
         db.session.delete(user)
         db.session.commit()
-        return redirect(url_for('signup'))
+        return redirect(url_for('routes.signup'))
 
-    return render_template('profile.html')
+    return render_template('profile.html', form=updateform, deleteform=deleteform, first_name=current_user.first_name, last_name=current_user.last_name)
 
 # create route to logout
 @routes.route('/logout')
