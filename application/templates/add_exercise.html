@@ -1,6 +1,17 @@
 {% extends 'index.html' %}
 {% block body %}
 <div class='form'>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class='notification is-danger'>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}              
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div class='form'>
+<div class='form'>
 <h1 class="title">Add an exercise: </h1>
 <form method='POST' action='/add_exercise'>
     <br>

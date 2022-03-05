@@ -1,6 +1,6 @@
 from application import db
 from application.models import Users, Exercises, Workout_Plans
-from application.forms import CreateAccountForm, LogInForm, UpdateAccountForm, DeleteAccountForm, ChangePWForm, CreateExerciseForm
+from application.forms import CreateAccountForm, LogInForm, UpdateAccountForm, DeleteAccountForm, ChangePWForm, CreateExerciseForm, UpdateExerciseForm
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
@@ -148,5 +148,44 @@ def add_exercise():
             db.session.commit()
             flash('Exercise has been added')
             return redirect(url_for('routes.add_exercise'))
-            
+
     return render_template('add_exercise.html', form=form)
+
+# create route to view exercises
+@routes.route('/view_exercise', methods=['GET', 'POST'])
+@login_required
+def view_exercise():
+
+    if request.method == 'GET':
+        exercises = Exercises.query.order_by(Exercises.exercise_name).all()
+    return render_template('view_exercise.html', exercises = exercises)
+
+@routes.route('/update/<exercise_name>', methods=['GET', 'POST'])
+@login_required
+def update_exercise(exercise_name):
+
+    form = UpdateExerciseForm()
+
+    exercise = Exercises.query.filter_by(exercise_name=exercise_name).first()
+    
+    if request.method == 'GET':
+        form.exercise_name.data = exercise.exercise_name
+        form.repetitions.data = exercise.repetitions
+        form.sets.data = exercise.sets
+        return render_template('update_exercise.html', form=form)
+    
+    else:
+        if form.validate_on_submit():
+            exercise.name = form.exercise_name.data
+            exercise.repetitions = form.repetitions.data
+            exercise.sets = form.sets.data
+            db.session.commit()
+            return redirect(url_for('routes.view_exercise'))
+
+@routes.route('/delete/<exercise_name>', methods=['GET', 'POST'])
+@login_required
+def delete_exercise(exercise_name):
+    exercise = Exercises.query.filter_by(exercise_name=exercise_name).first()
+    db.session.delete(exercise)
+    db.session.commit()
+    return redirect(url_for('routes.view_exercise'))
