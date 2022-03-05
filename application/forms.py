@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, DateTimeField, PasswordField, SubmitField
+from wtforms import StringField, IntegerField, DateTimeField, PasswordField, SubmitField, QuerySelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 from application import db
-from application.models import Users, Exercises
+from application.models import Users, Exercises, Workout_Plans
 from flask_login import current_user
 
 # Create Account Form
@@ -100,3 +100,6 @@ class CreateExerciseForm(FlaskForm):
             NumberRange(min=1, max=15, message="Please enter a number between 1 and 15")
         ])
     submit = SubmitField('Add Exercise')
+
+class ViewExercises(FlaskForm):
+    exercise_name = QuerySelectField(query_factory=lambda: Exercises.query.all())
