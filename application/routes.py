@@ -1,6 +1,6 @@
 from application import db
 from application.models import Users, Exercises, Workout_Plans
-from application.forms import CreateAccountForm, LogInForm, UpdateAccountForm, DeleteAccountForm
+from application.forms import CreateAccountForm, LogInForm, UpdateAccountForm, DeleteAccountForm, ChangePWForm
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
@@ -65,19 +65,19 @@ def login():
                 password=loginform.password.data
             )
             
-            user = Users.query.filter_by(email_address=loginform.email_address.data).first()
+            user = Users.query.filter_by(email_address=login.email_address).first()
 
             # check if the user actually exists
             # take the user-supplied password, hash it, and compare it to the hashed password in the database
-            if not user and check_password_hash(user.password, login.password):
+            if not user or not check_password_hash(user.password, login.password):
                 flash('Please check your username/password and try again')
                 errors = True
 
             if errors:
                 return redirect(url_for('routes.login')) # if incorrect credentials, redirect back to login page
-            else:
-                login_user(user)
-                return redirect(url_for('routes.profile')) # if correct, go to user profile
+            
+            login_user(user)
+            return redirect(url_for('routes.profile')) # if correct, go to user profile
 
     return render_template('login.html', form=loginform)
 
@@ -89,48 +89,56 @@ def profile():
     # call forms
     updateform = UpdateAccountForm()
     deleteform = DeleteAccountForm()
+    changepwform = ChangePWForm()
 
     errors = False
 
-    if request.method == 'POST':
-        if updateform.validate_on_submit():
-            current_user.user_name = updateform.user_name.data
-            current_user.password = generate_password_hash(updateform.password.data, method='sha256')
-            current_user.first_name = updateform.first_name.data
-            current_user.last_name = updateform.last_name.data
-            current_user.email_address = updateform.last_name.data
-            
-            # check if new username or email address already exist before committing changes, as these must be unique in the database
-            user_name = Users.query.filter_by(user_name=updateform.user_name.data).first()
-            email_address = Users.query.filter_by(email_address=updateform.email_address.data).first()
-            if user_name: # if username taken, flash error and redirect if error
-                flash('Username already in use')
-                errors = True
-            
-            if email_address: #if email taken, flash error and redirect if error
-                flash('Email address already in use')
-                errors = True
-            
-            if errors:
-                return redirect(url_for('routes.signup'))
-            else: 
-                db.session.commit()
-                return redirect(url_for('routes.profile'))
-    
-    elif request.method == 'GET':
+    if request.method == 'GET':
         updateform.user_name.data = current_user.user_name
-        updateform.password.data = current_user.password
         updateform.first_name.data = current_user.first_name
         updateform.last_name.data = current_user.last_name
         updateform.email_address.data = current_user.email_address
-    
-    if deleteform.is_submitted():
-        user = Users.query.filter_by(email_address=current_user.email_address)
-        db.session.delete(user)
-        db.session.commit()
-        return redirect(url_for('routes.signup'))
 
-    return render_template('profile.html', form=updateform, deleteform=deleteform, first_name=current_user.first_name, last_name=current_user.last_name)
+    elif request.method == 'POST':
+        if updateform.validate_on_submit():
+            current_user.user_name = updateform.user_name.data
+            current_user.first_name = updateform.first_name.data
+            current_user.last_name = updateform.last_name.data
+            current_user.email_address = updateform.email_address.data
+            
+            # check if new username or email address already exist before committing changes, as these must be unique in the database
+            # user = Users.query.filter_by(user_name=updateform.user_name.data).first()
+
+            # if user.user_name: # if username taken, flash error and redirect if error
+            #     flash('Username already in use')
+            #     errors = True
+            
+            # if user.email_address: #if email taken, flash error and redirect if error
+            #     flash('Email address already in use')
+            #     errors = True
+            
+            # if errors:
+            #     return redirect(url_for('routes.signup'))
+            
+            db.session.commit()
+            return redirect(url_for('routes.profile'))
+
+    # if deleteform.is_submitted():
+    #     user = Users.query.filter_by(user_ID=current_user.user_ID).first()
+    #     logout_user()
+    #     db.session.delete(user)
+    #     db.session.commit()
+    #     return redirect(url_for('routes.signup'))
+        
+    if changepwform.is_submitted():
+        user = current_user
+        user.password = generate_password_hash(changepwform.password.data, method='sha256')
+        db.session.add(user)
+        db.session.commit()
+        flash('Password has been updated!')
+        return redirect(url_for('routes.login'))
+
+    return render_template('profile.html', form=updateform, deleteform=deleteform, changepwform=changepwform, first_name=current_user.first_name, last_name=current_user.last_name)
 
 # create route to logout
 @routes.route('/logout')

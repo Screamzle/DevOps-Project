@@ -11,7 +11,7 @@
         {% endif %}
     {% endwith %}
         <h1 class="title">Please sign in to your account: </h1>
-        <form method='POST' action='/login'>
+        <form method='POST' action=''>
             <br>
                 {{ form.hidden_tag() }}
                 {{ form.email_address.label }} {{ form.email_address }}
