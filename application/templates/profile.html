@@ -6,6 +6,7 @@
 </h1>
 <br>
 <div class='form'>
+  {{ form.hidden_tag() }}
   {% with messages = get_flashed_messages() %}
       {% if messages %}
           <ul class='notification is-danger'>
@@ -15,18 +16,20 @@
           </ul>
       {% endif %}
   {% endwith %}
-      <h1 class="title">View/update account: </h1>
-      <form method='POST' action=''>
-          <br>
-          {{ form.hidden_tag() }}
+</div>
+<body>
+  <h1 class="title">View/update account: </h1>
+    <form method='POST' action=''>
+      <br>
+        {{ form.hidden_tag() }}
           {{ form.user_name.label }} {{ form.user_name }}
-              {% if form.user_name.errors %}
+            {% if form.user_name.errors %}
               <div class='error'>
-                  {% for error in form.user_name.errors %}
-                      <span>{{ error }}</span>
-                  {% endfor %}
+                {% for error in form.user_name.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
               </div>
-              {% endif %}
+            {% endif %}
           <br>
           {{ form.first_name.label }} {{ form.first_name }}
               {% if form.first_name.errors %}
@@ -56,23 +59,21 @@
               {% endif %}
           <br>
           {{ form.submit }}
+          <br>
+    </form>
+    <form method='POST' action='/profile'>
         <br>
-      </form>
-      <form method='POST' action=''>
+          {{ form.hidden_tag() }}
+          {{ changepwform.password.label }} {{ changepwform.password }}
+            <br>
+          {{ changepwform.change }}
         <br>
-        {{ changepwform.password.label }} {{ changepwform.password }}
-        <br>
-        {{ changepwform.change }}
-        <br>
-      </form>
     </form>
     <br>
-    <form method='POST' action=''>
+    <form method='POST' action='/profile'>
+        {{ form.hidden_tag() }}
         {{ deleteform.delete }}
     </form>
-  </form>
-  </div>
 </body>
-</html>
 
 {% endblock %}

@@ -10,7 +10,6 @@ class CreateAccountForm(FlaskForm):
         validators = [
             DataRequired(),
             Length(min = 3, max = 15)
-    
         ])
     password = PasswordField('Password: ',
         validators = [
@@ -76,5 +75,8 @@ class DeleteAccountForm(FlaskForm):
 
 # Change Password Form
 class ChangePWForm(FlaskForm):
-    password = PasswordField('Password: ')
+    password = PasswordField('Password: ',
+        validators = [
+            DataRequired()
+        ])
     change = SubmitField('Change Password')

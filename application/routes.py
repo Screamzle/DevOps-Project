@@ -36,17 +36,16 @@ def signup():
             if user_name: # if username taken, flash error and redirect
                 flash('Username already in use')
                 errors = True
-            
             if email_address: #if email taken, flash error and redirect
                 flash('Email address already in use')
                 errors = True
             
             if errors:
                 return redirect(url_for('routes.signup'))
-
-            db.session.add(user)
-            db.session.commit()
-            login_user(user)
+            else:
+                db.session.add(user)
+                db.session.commit()
+                login_user(user)
         return redirect(url_for('routes.profile'))
     return render_template('signup.html', form=createform)
 
@@ -88,8 +87,8 @@ def profile():
     
     # call forms
     updateform = UpdateAccountForm()
-    deleteform = DeleteAccountForm()
     changepwform = ChangePWForm()
+    deleteform = DeleteAccountForm()
 
     errors = False
 
@@ -105,38 +104,25 @@ def profile():
             current_user.first_name = updateform.first_name.data
             current_user.last_name = updateform.last_name.data
             current_user.email_address = updateform.email_address.data
-            
-            # check if new username or email address already exist before committing changes, as these must be unique in the database
-            # user = Users.query.filter_by(user_name=updateform.user_name.data).first()
-
-            # if user.user_name: # if username taken, flash error and redirect if error
-            #     flash('Username already in use')
-            #     errors = True
-            
-            # if user.email_address: #if email taken, flash error and redirect if error
-            #     flash('Email address already in use')
-            #     errors = True
-            
-            # if errors:
-            #     return redirect(url_for('routes.signup'))
-            
             db.session.commit()
+            flash('Account has been updated!')
             return redirect(url_for('routes.profile'))
 
-    # if deleteform.is_submitted():
-    #     user = Users.query.filter_by(user_ID=current_user.user_ID).first()
-    #     logout_user()
-    #     db.session.delete(user)
-    #     db.session.commit()
-    #     return redirect(url_for('routes.signup'))
-        
-    if changepwform.is_submitted():
+    if changepwform.validate_on_submit():
         user = current_user
         user.password = generate_password_hash(changepwform.password.data, method='sha256')
         db.session.add(user)
         db.session.commit()
         flash('Password has been updated!')
-        return redirect(url_for('routes.login'))
+        return redirect(url_for('routes.profile'))
+    
+    if deleteform.validate_on_submit():
+        user = Users.query.filter_by(user_ID=current_user.user_ID).first()
+        logout_user()
+        db.session.delete(user)
+        db.session.commit()
+        flash('Account has been deleted!')
+        return redirect(url_for('routes.signup'))
 
     return render_template('profile.html', form=updateform, deleteform=deleteform, changepwform=changepwform, first_name=current_user.first_name, last_name=current_user.last_name)
 
