@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, DateTimeField, PasswordField, SubmitField
+from wtforms import StringField, IntegerField, DateTimeField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 from application import db
 from application.models import Users, Exercises, Workout_Plans
@@ -118,3 +118,25 @@ class UpdateExerciseForm(FlaskForm):
             NumberRange(min=1, max=15, message="Please enter a number between 1 and 15")
         ])
     submit = SubmitField('Update Exercise')
+
+class AddWorkoutForm(FlaskForm):
+    workout_name = StringField('Workout name: ',
+        validators = [
+            DataRequired(),
+            Length(min = 3, max = 50)
+        ])
+    submit = SubmitField('Add Workout')
+
+class AddExerciseWorkoutForm(FlaskForm):
+    workout_name = SelectField('Workout Name: ',
+        validators=[DataRequired()]
+    )
+    exercise_name = SelectField('Exercise Name: ',
+        validators=[DataRequired()]
+    )
+    submit = SubmitField('Add Exercise to Workout')
+
+    def __init__(self, *args, **kwargs):
+        super(AddExerciseWorkoutForm, self).__init__(*args, **kwargs)
+        self.workout_name.choices = [(workout.plan_id, workout.name) for workout in Workout__Plans.query.order_by(Workout__Plans.workout_name)]
+        self.exercise_name.choices = [(exercise.exercise_id, exercise.name) for exercise in Exercises.query.order_by(Exercises.exercise_name)]
