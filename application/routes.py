@@ -189,3 +189,31 @@ def delete_exercise(exercise_name):
     db.session.delete(exercise)
     db.session.commit()
     return redirect(url_for('routes.view_exercise'))
+
+# create route to add workout name and add an exercise to a workout
+@routes.route('/add/workout/exercise', methods=['GET', 'POST'])
+@login_required
+def view_workout():
+    
+    form = AddWorkoutForm()
+    form2 = AddExerciseWorkoutForm()
+
+    if form.validate_on_submit():
+        workout = Workout__Names(
+            workout_name = form.workout_name.data
+        )
+        db.session.add(workout)
+        db.session.commit
+        flash('New workout name has been added')
+        return redirect(url_for('routes.view_workout'))
+    
+    if form2.validate_on_submit():
+        add_exercise = Workout__Plans(
+            workout_name = form.workout_name.data,
+            user_ID = current_user,
+            exercise_name = form.exercise_name.data
+        )
+        db.session.add(add_exercise)
+        db.session.commit
+
+    return render_template('add_workout.html', form = AddWorkoutForm, form2 = AddExerciseWorkoutForm)
