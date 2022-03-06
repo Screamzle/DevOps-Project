@@ -1,6 +1,6 @@
 from application import db
-from application.models import Users, Exercises, Workout_Plans
-from application.forms import CreateAccountForm, LogInForm, UpdateAccountForm, DeleteAccountForm, ChangePWForm, CreateExerciseForm, UpdateExerciseForm
+from application.models import Users, Exercises, Workout_Plans, Workout_Names
+from application.forms import CreateAccountForm, LogInForm, UpdateAccountForm, DeleteAccountForm, ChangePWForm, CreateExerciseForm, UpdateExerciseForm, AddWorkoutForm, AddExerciseWorkoutForm
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
@@ -190,30 +190,41 @@ def delete_exercise(exercise_name):
     db.session.commit()
     return redirect(url_for('routes.view_exercise'))
 
-# create route to add workout name and add an exercise to a workout
-@routes.route('/add/workout/exercise', methods=['GET', 'POST'])
+# create route to add workout name
+@routes.route('/add/workout/name', methods=['GET', 'POST'])
 @login_required
-def view_workout():
+def add_workout():
     
     form = AddWorkoutForm()
-    form2 = AddExerciseWorkoutForm()
+    
+    if form.validate_on_submit():
+        workout = Workout_Names(workout_name=form.workout_name.data)
+        db.session.add(workout)
+        db.session.commit()
+        flash('New workout name has been added')
+        return redirect(url_for('routes.add_workout'))
+
+    return render_template('add_workout.html', form=form)
+
+# create route to add an exercise to a workout
+@routes.route('/add/workout/exercise', methods=['GET', 'POST'])
+@login_required
+def add_workout_exercise():
+
+    form = AddExerciseWorkoutForm()
+    form.workout_name.choices = [(a.workout_name) for a in Workout_Names.query.order_by(Workout_Names.workout_name)]
+    form.exercise_name.choices = [(a.exercise_ID, a.exercise_name) for a in Exercises.query.order_by(Exercises.exercise_name)]
 
     if form.validate_on_submit():
-        workout = Workout__Names(
-            workout_name = form.workout_name.data
-        )
-        db.session.add(workout)
-        db.session.commit
-        flash('New workout name has been added')
-        return redirect(url_for('routes.view_workout'))
-    
-    if form2.validate_on_submit():
-        add_exercise = Workout__Plans(
+        id = Users.query
+        add_exercise = Workout_Plans(
             workout_name = form.workout_name.data,
-            user_ID = current_user,
-            exercise_name = form.exercise_name.data
+            user_ID = current_user.user_ID,
+            exercise_ID = form.exercise_name.data
         )
         db.session.add(add_exercise)
-        db.session.commit
+        db.session.commit()
+        flash('Exercise has been added to workout')
+        return redirect(url_for('routes.add_workout_exercise'))
 
-    return render_template('add_workout.html', form = AddWorkoutForm, form2 = AddExerciseWorkoutForm)
+    return render_template('workout_exercise_add.html', form=form)

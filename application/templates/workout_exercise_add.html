@@ -12,7 +12,7 @@
     {% endwith %}
 </div class='form'>
 <div class='form'>
-<h1 class="title">Add a Workout Program</h1>
+<h1 class="title">Add an Exercise to a Workout Program</h1>
 <form method='POST' action="">
     {{ form.hidden_tag() }}
     {{ form.workout_name.label }} {{ form.workout_name }}
@@ -24,8 +24,16 @@
         </div>
         {% endif %}
     <br>
-    {{ form.submit }}
+    {{ form.exercise_name.label }} {{ form.exercise_name }}
+    {% if form.exercise_name.errors %}
+    <div class='error'>
+        {% for error in form.exercise_name.errors %}
+            <span>{{ error }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
     <br>
+    {{ form.enter }}
     <br>
 </form>
 </div>

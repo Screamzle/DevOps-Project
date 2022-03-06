@@ -25,6 +25,9 @@
                             </a>
                             {% endif %}
                             {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('routes.signup') }}" class="navbar-item">
+                                Home
+                            </a>
                             <a href="{{ url_for('routes.profile') }}" class="navbar-item">
                                 Profile
                             </a>
@@ -32,10 +35,16 @@
                                 Logout
                             </a>
                             <a href="{{ url_for('routes.add_exercise') }}" class="navbar-item">
-                                Add an Exercise
+                                Create an Exercise
                             </a>
                             <a href="{{ url_for('routes.view_exercise') }}" class="navbar-item">
                                 View Exercises
+                            </a>
+                            <a href="{{ url_for('routes.add_workout') }}" class="navbar-item">
+                                Add Workouts
+                            </a>
+                            <a href="{{ url_for('routes.add_workout_exercise') }}" class="navbar-item">
+                                Add Exercises to Workouts
                             </a>
                             {% endif %}
                         </div>

@@ -134,9 +134,4 @@ class AddExerciseWorkoutForm(FlaskForm):
     exercise_name = SelectField('Exercise Name: ',
         validators=[DataRequired()]
     )
-    submit = SubmitField('Add Exercise to Workout')
-
-    def __init__(self, *args, **kwargs):
-        super(AddExerciseWorkoutForm, self).__init__(*args, **kwargs)
-        self.workout_name.choices = [(workout.plan_id, workout.name) for workout in Workout__Plans.query.order_by(Workout__Plans.workout_name)]
-        self.exercise_name.choices = [(exercise.exercise_id, exercise.name) for exercise in Exercises.query.order_by(Exercises.exercise_name)]
+    enter = SubmitField('Add Exercise to Workout')
