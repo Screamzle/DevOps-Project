@@ -160,6 +160,7 @@ def view_exercise():
         exercises = Exercises.query.order_by(Exercises.exercise_name).all()
     return render_template('view_exercise.html', exercises = exercises)
 
+# create route to update exercises
 @routes.route('/update/<exercise_name>', methods=['GET', 'POST'])
 @login_required
 def update_exercise(exercise_name):
@@ -182,6 +183,7 @@ def update_exercise(exercise_name):
             db.session.commit()
             return redirect(url_for('routes.view_exercise'))
 
+# create route to delete exercises
 @routes.route('/delete/<exercise_name>', methods=['GET', 'POST'])
 @login_required
 def delete_exercise(exercise_name):
@@ -216,7 +218,6 @@ def add_workout_exercise():
     form.exercise_name.choices = [(a.exercise_ID, a.exercise_name) for a in Exercises.query.order_by(Exercises.exercise_name)]
 
     if form.validate_on_submit():
-        id = Users.query
         add_exercise = Workout_Plans(
             workout_name = form.workout_name.data,
             user_ID = current_user.user_ID,
@@ -228,3 +229,23 @@ def add_workout_exercise():
         return redirect(url_for('routes.add_workout_exercise'))
 
     return render_template('workout_exercise_add.html', form=form)
+
+# create route to view workout plans
+@routes.route('/view_workouts', methods=['GET', 'POST'])
+@login_required
+def view_workouts():
+
+    if request.method == 'GET':
+        workout = Workout_Plans.query.order_by(Workout_Plans.plan_id).first()
+        exercises = Exercises.query.filter_by(exercise_ID=Workout_Plans.exercise_ID).all()
+    return render_template('view_workouts.html', workout=workout, exercises=exercises)
+
+# create route to delete exercises
+@routes.route('/delete/<int:exercise_ID>', methods=['GET', 'POST'])
+@login_required
+def delete_workout_exercise(exercise_ID):
+    exercise = Workout_Plans.query.filter_by(exercise_ID=Workout_Plans.exercise_ID).first()
+    db.session.delete(exercise)
+    db.session.commit()
+    flash('Exercise has been removed from your workout plan')
+    return redirect(url_for('routes.view_workouts'))

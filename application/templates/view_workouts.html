@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+{% block body %}
+<div class='form'>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class='notification is-danger'>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}              
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div class='form'>
+<section class="hero is-size-2">
+    View workouts: </h1>
+</section>
+<br>
+        <div>
+            <h3>  
+            <section class="hero is-size-4">
+                Workout Name: {{ workout.workout_name }}
+            </section>
+            <br>
+                {% for exercise in exercises %}
+                    <div><h3>
+                        <span> Exercise Name: {{ exercise.exercise_name }}</span>
+                        <br>
+                        <span> Number of repetitions: {{ exercise.repetitions }}</span>
+                        <br>
+                        <span> Number of sets: {{ exercise.sets }} </span>
+                        <br>
+                    <button><a href="{{ url_for('routes.delete_workout_exercise', exercise_ID=exercise.exercise_ID) }}">Delete</a></button> 
+                    <br>
+                    <br>
+             </h3>
+        </div>
+        {% endfor %}
+</section>>
+{% endblock %}
