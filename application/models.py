@@ -37,7 +37,7 @@ class Workout_Plans(db.Model):
     user_ID = db.Column(db.Integer, db.ForeignKey('users.user_ID'), nullable=False) # FK users
     exercise_ID = db.Column(db.Integer, db.ForeignKey('exercises.exercise_ID'), nullable=False) # FK exercises
     # creating relationship with exercises
-    exercises = db.relationship('Exercises', secondary=workout_exercises, backref='workout')
+    exercises = db.relationship('Exercises', secondary=workout_exercises, backref='workouts')
 
     def __init__(self, workout_name, user_ID, exercise_ID):
         self.workout_name = workout_name
@@ -45,7 +45,7 @@ class Workout_Plans(db.Model):
         self.exercise_ID = exercise_ID
 
     def __repr__(self):
-        return '<Workout_Plans %s>' % self.workout_name
+        return 'Workout Plan: %s' % self.workout_name
 
 # Table schema for exercises
 class Exercises(db.Model):
@@ -61,4 +61,4 @@ class Exercises(db.Model):
         self.sets = sets
 
     def __repr__(self):
-        return '<Exercises %s>' % self.exercise_name
+        return '<Exercise: %s>' % self.exercise_name

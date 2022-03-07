@@ -19,12 +19,11 @@
     {% for workout in workouts %}
         {% if id == workout.user_ID and workout.workout_name not in list %}
             Workout Name: {{ workout.workout_name }}
+            Exercise Name: {{ workout.exercise_name }}
             {% do list.append(workout.workout_name) %}
             </section>
-            <section class="hero is-size-6">
+            <h4>
                 {% for exercise in exercises %}
-                {{ query }}
-                    <h7>
                     <span> Exercise Name: {{ exercise.exercise_name }}</span>
                     <br>
                     <span> Number of repetitions: {{ exercise.repetitions }}</span>
@@ -34,9 +33,8 @@
                     <button><a href="{{ url_for('routes.delete_workout_exercise', exercise_ID=exercise.exercise_ID) }}">Delete</a></button> 
                     <br>
                     <br>
-                    </h7>
                 {% endfor %}
-            </section>
+            </h4>
         {% endif %}
     {% endfor %}
 </section>
