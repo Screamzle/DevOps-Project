@@ -28,9 +28,10 @@ def create_app():
         return Users.query.get(int(user_id))
 
     # run FLASK_APP=application flask createdb in terminal to create tables
-    @app.cli.command()
-    def createdb():
-        db.create_all()
+    # @app.cli.command()
+    # def createdb():
+    # with app.app_context(): # or with app.context when CLI won't work
+    #     db.create_all()
 
     # run FLASK_APP=application flask dropdb in terminal to drop tables
     @app.cli.command()

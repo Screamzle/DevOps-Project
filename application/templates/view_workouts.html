@@ -19,7 +19,6 @@
     {% for workout in workouts %}
         {% if id == workout.user_ID and workout.workout_name not in list %}
             Workout Name: {{ workout.workout_name }}
-            Exercise Name: {{ workout.exercise_name }}
             {% do list.append(workout.workout_name) %}
             </section>
             <h4>
