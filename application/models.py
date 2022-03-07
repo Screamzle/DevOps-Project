@@ -22,7 +22,7 @@ class Workout_Names(db.Model):
     __tablename__ = 'workout_names'
     workout_name = db.Column(db.String(30), primary_key=True) # PK
     # creating relationship with Workout Plans
-    workout_names = db.relationship('Workout_Plans', backref='workout')
+    workout_names = db.relationship('Workout_Plans', backref='name')
 
 workout_exercises = db.Table('workout_exercises',
     db.Column('plan_id', db.Integer, db.ForeignKey('workout_plans.plan_id'), primary_key=True),
@@ -37,7 +37,7 @@ class Workout_Plans(db.Model):
     user_ID = db.Column(db.Integer, db.ForeignKey('users.user_ID'), nullable=False) # FK users
     exercise_ID = db.Column(db.Integer, db.ForeignKey('exercises.exercise_ID'), nullable=False) # FK exercises
     # creating relationship with exercises
-    exercises = db.relationship('Exercises', secondary=workout_exercises)
+    exercises = db.relationship('Exercises', secondary=workout_exercises, backref='workout')
 
     def __init__(self, workout_name, user_ID, exercise_ID):
         self.workout_name = workout_name

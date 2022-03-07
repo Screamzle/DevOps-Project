@@ -12,28 +12,32 @@
     {% endwith %}
 </div class='form'>
 <section class="hero is-size-2">
-    View workouts: </h1>
+    View workout:
 </section>
 <br>
-        <div>
-            <h3>  
-            <section class="hero is-size-4">
-                Workout Name: {{ workout.workout_name }}
+<section class="hero is-size-4">
+    {% for workout in workouts %}
+        {% if id == workout.user_ID and workout.workout_name not in list %}
+            Workout Name: {{ workout.workout_name }}
+            {% do list.append(workout.workout_name) %}
             </section>
-            <br>
+            <section class="hero is-size-6">
                 {% for exercise in exercises %}
-                    <div><h3>
-                        <span> Exercise Name: {{ exercise.exercise_name }}</span>
-                        <br>
-                        <span> Number of repetitions: {{ exercise.repetitions }}</span>
-                        <br>
-                        <span> Number of sets: {{ exercise.sets }} </span>
-                        <br>
+                {{ query }}
+                    <h7>
+                    <span> Exercise Name: {{ exercise.exercise_name }}</span>
+                    <br>
+                    <span> Number of repetitions: {{ exercise.repetitions }}</span>
+                    <br>
+                    <span> Number of sets: {{ exercise.sets }} </span>
+                    <br>
                     <button><a href="{{ url_for('routes.delete_workout_exercise', exercise_ID=exercise.exercise_ID) }}">Delete</a></button> 
                     <br>
                     <br>
-             </h3>
-        </div>
-        {% endfor %}
-</section>>
+                    </h7>
+                {% endfor %}
+            </section>
+        {% endif %}
+    {% endfor %}
+</section>
 {% endblock %}
