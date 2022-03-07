@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% block body %}
+<h1 class="title">View exercises: </h1>
+    {% for exercise in exercises %}
+        <div><h3>
+            <span> Exercise Name: {{ exercise.exercise_name }}</span>
+            <br>
+            <span> Number of repetitions: {{ exercise.repetitions }}</span>
+            <br>
+            <span> Number of sets: {{ exercise.sets }} </span>
+            <br>
+            <button><a href="{{ url_for('routes.update_exercise', exercise_name=exercise.exercise_name) }}">Update</a></button>
+            <button><a href="{{ url_for('routes.delete_exercise', exercise_name=exercise.exercise_name) }}">Delete</a></button> 
+            <br>
+        </h3></div>
+    {% endfor %}
+{% endblock %}

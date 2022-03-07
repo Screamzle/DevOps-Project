@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+{% block body %}
+<div class='form'>
+    <form method='POST' action=''>
+        {{ form.hidden_tag() }}
+        {{ form.exercise_name.label }} {{ form.exercise_name }}
+        {% if form.exercise_name.errors %}
+        <div class='error'>
+            {% for error in form.exercise_name.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <br>
+        {{ form.repetitions.label }} {{ form.repetitions }}
+        {% if form.repetitions.errors %}
+        <div class='error'>
+            {% for error in form.repetitions.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <br>
+        {{ form.sets.label }} {{ form.sets }}
+        {% if form.sets.errors %}
+        <div class='error'>
+            {% for error in form.sets.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <br>
+        {{ form.submit }}
+    </form>
+</div>
+{% endblock body %}

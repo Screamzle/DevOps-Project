@@ -7,7 +7,7 @@ import os
 db = SQLAlchemy()
 
 # create Flask factory app, must be run with flask run on terminal instead
-# must export FLASK_ENV=development and export FLASK_APP=application
+# must export FLASK_ENV=development, export FLASK_APP=application and export FLASK_RUN_HOST=0.0.0.0
 def create_app(): 
     app = Flask(__name__)
 
@@ -21,11 +21,20 @@ def create_app():
     login_manager.login_view = 'login'
     login_manager.init_app(app)
 
-    from application.models import Users
+    from application.models import Users, Exercises, Workout_Plans
     @login_manager.user_loader
     def load_user(user_id):
         return Users.query.get(int(user_id))
 
+    # run FLASK_APP=application flask createdb in terminal to create tables
+    @app.cli.command()
+    def createdb():
+        db.create_all()
+
+    # run FLASK_APP=application flask dropdb in terminal to drop tables
+    @app.cli.command()
+    def dropdb():
+        db.drop_all()
 
     from application.routes import routes as routes_blueprint
     app.register_blueprint(routes_blueprint)

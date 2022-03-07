@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+{% block body %}
+<div class='form'>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class='notification is-danger'>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}              
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div class='form'>
+<div class='form'>
+<h1 class="title">Add a Workout Program</h1>
+<form method='POST' action="">
+    {{ form.hidden_tag() }}
+    {{ form.workout_name.label }} {{ form.workout_name }}
+        {% if form.workout_name.errors %}
+        <div class='error'>
+            {% for error in form.workout_name.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+    <br>
+    {{ form.submit }}
+    <br>
+    <br>
+</form>
+</div>
+{% endblock %}

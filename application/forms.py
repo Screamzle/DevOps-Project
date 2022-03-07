@@ -1,8 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateTimeField, PasswordField, SubmitField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms import StringField, IntegerField, DateTimeField, PasswordField, SubmitField, SelectField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 from application import db
-from application.models import Users, Exercises
+from application.models import Users, Exercises, Workout_Plans
+from flask_login import current_user
 
 # Create Account Form
 class CreateAccountForm(FlaskForm):
@@ -50,7 +51,7 @@ class UpdateAccountForm(FlaskForm):
     user_name = StringField('User Name: ',
         validators = [
             DataRequired(),
-            Length(min = 3, max = 15)
+            Length(min = 3, max = 15),
         ])
     first_name = StringField('First Name: ',
         validators = [
@@ -80,3 +81,57 @@ class ChangePWForm(FlaskForm):
             DataRequired()
         ])
     change = SubmitField('Change Password')
+
+# Create Exercise Form
+class CreateExerciseForm(FlaskForm):
+    exercise_name = StringField('Exercise Name: ',
+        validators = [
+            DataRequired(),
+            Length(min = 3, max = 50)
+        ])
+    repetitions = IntegerField('Number of repetitions: ',
+        validators = [
+            DataRequired(),
+            NumberRange(min=1, max=25, message="Please enter a number between 1 and 25")
+        ])
+    sets = IntegerField('Number of sets: ',
+        validators = [
+            DataRequired(),
+            NumberRange(min=1, max=15, message="Please enter a number between 1 and 15")
+        ])
+    submit = SubmitField('Add Exercise')
+
+class UpdateExerciseForm(FlaskForm):
+    exercise_name = StringField('Exercise name: ',
+        validators = [
+            DataRequired(),
+            Length(min = 3, max = 50)
+        ])
+    repetitions = IntegerField('Number of repetitions: ',
+        validators = [
+            DataRequired(),
+            NumberRange(min=1, max=25, message="Please enter a number between 1 and 25")
+        ])
+    sets = IntegerField('Number of sets: ',
+        validators = [
+            DataRequired(),
+            NumberRange(min=1, max=15, message="Please enter a number between 1 and 15")
+        ])
+    submit = SubmitField('Update Exercise')
+
+class AddWorkoutForm(FlaskForm):
+    workout_name = StringField('Workout name: ',
+        validators = [
+            DataRequired(),
+            Length(min = 3, max = 50)
+        ])
+    submit = SubmitField('Add Workout')
+
+class AddExerciseWorkoutForm(FlaskForm):
+    workout_name = SelectField('Workout Name: ',
+        validators=[DataRequired()]
+    )
+    exercise_name = SelectField('Exercise Name: ',
+        validators=[DataRequired()]
+    )
+    enter = SubmitField('Add Exercise to Workout')
