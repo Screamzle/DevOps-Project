@@ -2,11 +2,11 @@
 
 # install apt dependencies
 source venv/bin/activate
-sudo apt update
-sudo apt install python3-venv python3-pip python3 -y
+sudo apt-get update
+sudo apt-get install python3-venv python3-pip python3 -y
 
 # create and activate virtual enviromment
-python3 -m venv venv
+python3 -m -S venv venv
 
 # install pip requirements
 pip3 install -r requirements.txt
