@@ -21,7 +21,7 @@ pipeline {
         }
 	    stage('Network') {
 	        steps {
-	    	    sh "if ! docker network inspect my-network > /dev/null 2>&1; then docker network create my-overlay-network; fi" 
+	    	    sh "if ! docker network inspect my-network > /dev/null 2>&1; then docker network create my-network; fi" 
             }
         }
         stage('Deploy') {
