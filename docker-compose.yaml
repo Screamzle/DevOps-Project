@@ -1,16 +1,17 @@
 version: "3.8"
 
 services:
-  workoutapp:
-    build: ./application
+  workoutapp-compose:
+    build: ./
     ports:
     - target: 5000
       published: 5000
       protocol: tcp
-    depends_on:
-      - "mysql"
-    container_name: workoutapp_container
-  nginx:
+    environment:
+      DATABASE_URI: 'mysql+pymysql://root:root@sqldb_compose_container:3306/workoutdb'
+      MYSQL_ROOT_PASSWORD: root
+    container_name: workoutapp_compose_container
+  nginx-compose:
     image: nginx:latest
     ports:
     - target: 80
@@ -21,17 +22,15 @@ services:
       source: ./nginx/nginx.conf
       target: /etc/nginx/nginx.conf
     depends_on:
-      - workoutapp
-    container_name: nginx_container
-  mysql:
-    build: ./db
+      - workoutapp-compose
+    container_name: nginx_compose_container
+  mysql-compose:
+    build: ./db/
     ports:
     - target: 3306
       published: 3006
       protocol: tcp
-    volumes:
-      - /var/lib/docker/volumes/workout_volume:/var/lib/mysql
-    container_name: sqldb_container
+    container_name: sqldb_compose_container
 
 volumes:
   workout_volume:

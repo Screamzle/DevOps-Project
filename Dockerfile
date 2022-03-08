@@ -1,13 +1,12 @@
 #Use Python 3.8.10 as a base image
 FROM python:3.8.10
 # Copy contents into image
-WORKDIR /DevOps-Project/application
+WORKDIR /DevOps-Project
 COPY . /
 # Set environment variables
 ENV FLASK_ENV=development
 ENV FLASK_APP=/application/
 ENV FLASK_RUN_HOST=0.0.0.0
-ENV DATABASE_URI='mysql+pymysql://root:root@sqldb_container:3306/workoutdb'
 # install pip dependencies from requirements file
 RUN pip3 install -r /requirements.txt
 # Expose correct port
