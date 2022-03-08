@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  workoutapp:
+    build: ./application
+    ports:
+    - target: 5000
+      published: 5000
+      protocol: tcp
+    depends_on:
+      - "mysql"
+    container_name: workoutapp_container
+  nginx:
+    image: nginx:latest
+    ports:
+    - target: 80
+      published: 80
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: ./nginx/nginx.conf
+      target: /etc/nginx/nginx.conf
+    depends_on:
+      - workoutapp
+    container_name: nginx_container
+  mysql:
+    build: ./db
+    ports:
+    - target: 3306
+      published: 3006
+      protocol: tcp
+    volumes:
+      - /var/lib/docker/volumes/workout_volume:/var/lib/mysql
+    container_name: sqldb_container
+
+volumes:
+  workout_volume:
+      external: true
+      name: workout_volume

@@ -1,6 +1,6 @@
 from application import db
 from application.models import Users, Exercises, Workout_Plans, Workout_Names
-from application.forms import CreateAccountForm, LogInForm, UpdateAccountForm, DeleteAccountForm, ChangePWForm, CreateExerciseForm, UpdateExerciseForm, AddWorkoutForm, AddExerciseWorkoutForm
+from application.forms import *
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
@@ -235,14 +235,18 @@ def add_workout_exercise():
 def view_workouts():
 
     if request.method == 'GET':
-        workout = Workout_Plans.query.order_by(Workout_Plans.plan_id).first()
+        list = []
+        id = current_user.user_ID
+        workouts = Workout_Plans.query.order_by(Workout_Plans.plan_id).all()
         exercises = Exercises.query.filter_by(exercise_ID=Workout_Plans.exercise_ID).all()
-    return render_template('view_workouts.html', workout=workout, exercises=exercises)
+
+    return render_template('view_workouts.html', id=id, workouts=workouts, exercises=exercises, list=list)
 
 # create route to delete exercises
 @routes.route('/delete/<int:exercise_ID>', methods=['GET', 'POST'])
 @login_required
 def delete_workout_exercise(exercise_ID):
+
     exercise = Workout_Plans.query.filter_by(exercise_ID=Workout_Plans.exercise_ID).first()
     db.session.delete(exercise)
     db.session.commit()

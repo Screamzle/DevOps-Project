@@ -2,3 +2,4 @@
 /tests/__pycache__/*
 /tests/.coverage
 /application/__pycache__/*
+/application/__pycache__
