@@ -13,11 +13,6 @@ pipeline {
 	    	    sh "bash jenkins/setup.sh"
             }
         }
-        stage('Test') {
-	        steps {
-	    	    sh "bash jenkins/test.sh"
-            }
-        }
         stage('Build') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Screamzle/DevOps-Project']]])
