@@ -1,7 +1,7 @@
 #Use Python 3.8.10 as a base image
 FROM python:3.8.10
 # Copy contents into image
-WORKDIR /DevOps-Project
+WORKDIR /DevOps-Project/application
 COPY . /
 # Set environment variables
 ENV FLASK_ENV=development

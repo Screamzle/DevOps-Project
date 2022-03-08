@@ -7,8 +7,8 @@ services:
     - target: 5000
       published: 5000
       protocol: tcp
-    environment:
-      DATABASE_URI: 'mysql+pymysql://root:root@sqldb_container:3306/workoutdb'
+    depends_on:
+      - "mysql"
     container_name: workoutapp_container
   nginx:
     image: nginx:latest
@@ -20,14 +20,20 @@ services:
     - type: bind
       source: ./nginx/nginx.conf
       target: /etc/nginx/nginx.conf
+    depends_on:
+      - workoutapp
     container_name: nginx_container
   mysql:
-    image: mysql:latest
+    build: ./db
+    ports:
+    - target: 3306
+      published: 3006
+      protocol: tcp
     volumes:
-      - workout_volume:/var/lib/mysql
+      - /var/lib/docker/volumes/workout_volume:/var/lib/mysql
     container_name: sqldb_container
 
 volumes:
-  data_volume:
+  workout_volume:
       external: true
       name: workout_volume

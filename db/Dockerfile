@@ -4,4 +4,4 @@ FROM mysql:8.0
 ENV MYSQL_DATABASE=workoutdb
 ENV MYSQL_ROOT_PASSWORD=root
 # add volume
-VOLUME workout_volume:/var/lib/mysql
+VOLUME /var/lib/docker/volumes/workout_volume:/var/lib/mysql
