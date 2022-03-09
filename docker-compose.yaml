@@ -3,13 +3,13 @@ version: "3.8"
 services:
   workoutapp-compose:
     build: ./
-    image: ${DOCKER_HUB_CREDS_USR}/workoutapp:latest
+    image: screamzle/workoutapp:latest
     ports:
     - target: 5000
       published: 5000
       protocol: tcp
     environment:
-      DATABASE_URI: 'mysql+pymysql://root:root@sqldb_compose_container:3306/workoutdb'
+      DATABASE_URI: 'mysql+pymysql://root:root@sqldb_container:3306/workoutdb'
       MYSQL_ROOT_PASSWORD: root
     container_name: workoutapp_compose_container
   nginx-compose:
@@ -27,12 +27,12 @@ services:
     container_name: nginx_compose_container
   mysql-compose:
     build: ./db/
-    image: ${DOCKER_HUB_CREDS_USR}/sqldbimage:latest
+    image: screamzle/sqldbimage:latest
     ports:
     - target: 3306
       published: 3006
       protocol: tcp
-    container_name: sqldb_compose_container
+    container_name: sqldb_container
 
 volumes:
   workout_volume:

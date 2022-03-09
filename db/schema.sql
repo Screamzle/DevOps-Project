@@ -26,16 +26,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
-CREATE TABLE IF NOT EXISTS `workout_exercises` (
-  `plan_id` int NOT NULL,
-  `exercise_id` int NOT NULL,
-  PRIMARY KEY (`plan_id`,`exercise_id`),
-  KEY `exercise_id` (`exercise_id`),
-  CONSTRAINT `workout_exercises_ibfk_1` FOREIGN KEY (`plan_id`) REFERENCES `workout_plans` (`plan_id`),
-  CONSTRAINT `workout_exercises_ibfk_2` FOREIGN KEY (`exercise_id`) REFERENCES `exercises` (`exercise_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
 CREATE TABLE IF NOT EXISTS `workout_names` (
   `workout_name` varchar(30) NOT NULL,
   PRIMARY KEY (`workout_name`)
@@ -55,3 +45,13 @@ CREATE TABLE IF NOT EXISTS `workout_plans` (
   CONSTRAINT `workout_plans_ibfk_2` FOREIGN KEY (`user_ID`) REFERENCES `users` (`user_ID`),
   CONSTRAINT `workout_plans_ibfk_3` FOREIGN KEY (`exercise_ID`) REFERENCES `exercises` (`exercise_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE IF NOT EXISTS `workout_exercises` (
+  `plan_id` int NOT NULL,
+  `exercise_id` int NOT NULL,
+  PRIMARY KEY (`plan_id`,`exercise_id`),
+  KEY `exercise_id` (`exercise_id`),
+  CONSTRAINT `workout_exercises_ibfk_1` FOREIGN KEY (`plan_id`) REFERENCES `workout_plans` (`plan_id`),
+  CONSTRAINT `workout_exercises_ibfk_2` FOREIGN KEY (`exercise_id`) REFERENCES `exercises` (`exercise_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
