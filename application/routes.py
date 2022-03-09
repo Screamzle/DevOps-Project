@@ -229,26 +229,43 @@ def add_workout_exercise():
 
     return render_template('workout_exercise_add.html', form=form)
 
-# create route to view workout plans
-@routes.route('/view_workouts', methods=['GET', 'POST'])
+# create to choose workout
+@routes.route('/choose_workout/', methods=['GET', 'POST'])
 @login_required
-def view_workouts():
+def choose_workout():
+    
+    form = SelectWorkoutForm()
+    form.workout_name.choices = [(a.workout_name) for a in Workout_Names.query.order_by(Workout_Names.workout_name.desc()).all()]
+
+    if form.validate_on_submit():
+        workout = Workout_Plans(workout_name=form.workout_name.data)
+
+        return redirect(url_for('routes.view_workout', workout_name=workout.workout_name))
+
+    return render_template('choose_workout.html', form=form)
+
+# create route to view workout plans
+@routes.route('/view_workout/<workout_name>', methods=['GET', 'POST'])
+@login_required
+def view_workout(workout_name):
 
     if request.method == 'GET':
+        
         list = []
-        id = current_user.user_ID
-        workouts = Workout_Plans.query.order_by(Workout_Plans.plan_id).all()
-        exercises = Exercises.query.filter_by(exercise_ID=Workout_Plans.exercise_ID).all()
+        workouts = Workout_Plans.query.filter_by(workout_name=workout_name).all()
+        for workout in workouts:
+            exercise = Exercises.query.get(workout.exercise_ID)
+            list.append(exercise)
 
-    return render_template('view_workouts.html', id=id, workouts=workouts, exercises=exercises, list=list)
+    return render_template('view_workouts.html', list=list, workout_name=workout_name, workouts=workouts)
 
 # create route to delete exercises
-@routes.route('/delete/<int:exercise_ID>', methods=['GET', 'POST'])
+@routes.route('/delete/<int:exercise_ID>/<workout_name>', methods=['GET', 'POST'])
 @login_required
-def delete_workout_exercise(exercise_ID):
+def delete_workout_exercise(exercise_ID, workout_name):
 
-    exercise = Workout_Plans.query.filter_by(exercise_ID=Workout_Plans.exercise_ID).first()
-    db.session.delete(exercise)
+    exercise_to_delete = Workout_Plans.query.filter_by(workout_name=workout_name).filter_by(exercise_ID=exercise_ID).first()
+    db.session.delete(exercise_to_delete)
     db.session.commit()
     flash('Exercise has been removed from your workout plan')
-    return redirect(url_for('routes.view_workouts'))
+    return redirect(url_for('routes.choose_workout'))

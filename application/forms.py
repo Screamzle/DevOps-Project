@@ -140,6 +140,5 @@ class SelectWorkoutForm(FlaskForm):
     workout_name = SelectField('Workout name: ',
         validators = [
             DataRequired(),
-            Length(min = 3, max = 50)
         ])
     submit = SubmitField('View Workout')

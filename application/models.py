@@ -39,11 +39,6 @@ class Workout_Plans(db.Model):
     # creating relationship with exercises
     exercises = db.relationship('Exercises', secondary=workout_exercises, backref='workouts')
 
-    def __init__(self, workout_name, user_ID, exercise_ID):
-        self.workout_name = workout_name
-        self.user_ID = user_ID
-        self.exercise_ID = exercise_ID
-
     def __repr__(self):
         return 'Workout Plan: %s' % self.workout_name
 
@@ -55,10 +50,5 @@ class Exercises(db.Model):
     repetitions = db.Column(db.Integer, nullable=False) # Number of repetitions
     sets = db.Column(db.Integer, nullable=False) # Number of sets
 
-    def __init__(self, exercise_name, repetitions, sets):
-        self.exercise_name = exercise_name
-        self.repetitions = repetitions
-        self.sets = sets
-
     def __repr__(self):
-        return '<Exercise: %s>' % self.exercise_name
+        return 'Exercise: %s' % self.exercise_name

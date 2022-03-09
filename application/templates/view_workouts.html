@@ -16,25 +16,20 @@
 </section>
 <br>
 <section class="hero is-size-4">
-    {% for workout in workouts %}
-        {% if id == workout.user_ID and workout.workout_name not in list %}
-            Workout Name: {{ workout.workout_name }}
-            {% do list.append(workout.workout_name) %}
+            Workout Name: {{ workout_name }}
             </section>
             <h4>
-                {% for exercise in exercises %}
-                    <span> Exercise Name: {{ exercise.exercise_name }}</span>
+                {% for item in list %}
+                    <span> Exercise Name: {{ item.exercise_name }}</span>
                     <br>
-                    <span> Number of repetitions: {{ exercise.repetitions }}</span>
+                    <span> Number of repetitions: {{ item.repetitions }}</span>
                     <br>
-                    <span> Number of sets: {{ exercise.sets }} </span>
+                    <span> Number of sets: {{ item.sets }} </span>
                     <br>
-                    <button><a href="{{ url_for('routes.delete_workout_exercise', exercise_ID=exercise.exercise_ID) }}">Delete</a></button> 
+                    <button><a href="{{ url_for('routes.delete_workout_exercise', workout_name=workout_name, exercise_ID=item.exercise_ID) }}">Delete</a></button> 
                     <br>
                     <br>
                 {% endfor %}
             </h4>
-        {% endif %}
-    {% endfor %}
 </section>
 {% endblock %}

@@ -1,6 +1,7 @@
 import pytest
 from flask import abort, url_for
 from flask_testing import TestCase
+from flask_login import login_user
 from application import create_app, db
 from application.models import Users, Exercises, Workout_Plans, Workout_Names
 
@@ -11,6 +12,7 @@ class TestBase(TestCase):
         app.config.update({
             'SQLALCHEMY_DATABASE_URI': 'sqlite:///:memory:',
             'SQLALCHEMY_TRACK_MODIFICATIONS': False,
+            'LOGIN_DISABLED': True,
             'TESTING': True
         })
         db.init_app(app)
@@ -42,23 +44,50 @@ class TestBase(TestCase):
         db.session.add(e)
         db.session.commit()
 
-        def tearDown(self):
-            # Will be called after every test
-            db.session.remove()
-            db.drop_all()
-
-class TestLogin(TestBase):
-
-    def test_login_view(self):
-        return 'test'
+    def tearDown(self):
+        # Will be called after every test
+        db.session.remove()
+        db.drop_all()
 
 class TestViews(TestBase):
 
     # Test whether we get a successful response from our routes
-    def test_signup_get(self):
-        response = self.client.get(url_for('routes.signup'))
+    def test_homepage_view(self):
+        response = self.client.get(url_for('routes.homepage'))
         self.assert200(response)
 
-# class TestRead(TestBase):
+    def test_signup_view(self):
+        response = self.client.get(url_for('routes.signup'))
+        self.assert200(response)
+    
+    def test_login_view(self):
+        response = self.client.get(url_for('routes.login'))
+        self.assert200(response)
 
-#     test_read_user(self):
+    def test_logout_view(self):
+        response = self.client.get(url_for('routes.profile'))
+        self.assert200(response)
+
+    def test_logout_view(self):
+        response = self.client.get(url_for('routes.logout'))
+        self.assert200(response)
+
+    def test_addexercise_view(self):
+        response = self.client.get(url_for('routes.add_exercise'))
+        self.assert200(response)
+
+    def test_viewexercise_view(self):
+        response = self.client.get(url_for('routes.view_exercise'))
+        self.assert200(response)
+
+    def test_addworkout_view(self):
+        response = self.client.get(url_for('routes.add_workout'))
+        self.assert200(response)
+
+    def test_addwexercise_view(self):
+        response = self.client.get(url_for('routes.add_workout_exercise'))
+        self.assert200(response)
+
+    def test_viewworkout_view(self):
+        response = self.client.get(url_for('routes.view_workouts'))
+        self.assert200(response)
