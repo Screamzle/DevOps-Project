@@ -64,10 +64,6 @@ class TestViews(TestBase):
         response = self.client.get(url_for('routes.login'))
         self.assert200(response)
 
-    def test_logout_view(self):
-        response = self.client.get(url_for('routes.logout'))
-        self.assert200(response)
-
     def test_addexercise_view(self):
         response = self.client.get(url_for('routes.add_exercise'))
         self.assert200(response)
@@ -83,3 +79,4 @@ class TestViews(TestBase):
     def test_addwexercise_view(self):
         response = self.client.get(url_for('routes.add_workout_exercise'))
         self.assert200(response)
+
