@@ -33,7 +33,7 @@ services:
   
   mysql-compose:
     build: ./db/
-    image: ${DOCKER_HUB_CREDS_USER}/sqldbimage:latest
+    image: ${DOCKER_HUB_CREDS_USR}/sqldbimage:latest
     ports:
     - target: 3306
       published: 3006
