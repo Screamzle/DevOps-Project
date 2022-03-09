@@ -16,19 +16,14 @@ pipeline {
                 }
             }
         }
-        stage('Push') {
-	        steps {
-	    	    sh "docker-compose push"
-            }
-        }
         stage('Build') {
             steps {
 		        sh "docker-compose build"
             }
         }
-	    stage('Network') {
+        stage('Push') {
 	        steps {
-	    	    sh "if ! docker network inspect my-overlay-network > /dev/null 2>&1; then docker network create -d overlay my-overlay-network; fi" 
+	    	    sh "docker-compose push"
             }
         }
         stage('Deploy') {
