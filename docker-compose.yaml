@@ -3,7 +3,7 @@ version: "3.8"
 services:
   workoutapp-compose:
     build: ./
-    image: ${DOCKER_HUB_CREDS_USER}/workoutapp:latest
+    image: ${DOCKER_HUB_CREDS_USR}/workoutapp:latest
     ports:
     - target: 5000
       published: 5000
