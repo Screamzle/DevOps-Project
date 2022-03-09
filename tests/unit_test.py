@@ -14,7 +14,6 @@ class TestBase(TestCase):
             'TESTING': True
         })
         db.init_app(app)
-
         return app
 
     def setUp(self):
