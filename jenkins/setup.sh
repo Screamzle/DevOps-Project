@@ -10,3 +10,6 @@ python3 -m -S venv venv
 
 # install pip requirements
 pip3 install -r requirements.txt
+
+# docker login
+docker login --username $DOCKER_HUB_CREDS_USR --password $DOCKER_HUB_CREDS_PSW

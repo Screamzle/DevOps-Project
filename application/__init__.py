@@ -30,15 +30,15 @@ def create_app():
     #     db.drop_all()
     #     db.create_all()
 
-    # flask createdb in terminal to create tables
-    @app.cli.command()
-    def createdb():
-        db.create_all()
+    # # flask createdb in terminal to create tables
+    # @app.cli.command()
+    # def createdb():
+    #     db.create_all()
 
-    # flask dropdb in terminal to drop tables
-    @app.cli.command()
-    def dropdb():
-        db.drop_all()
+    # # flask dropdb in terminal to drop tables
+    # @app.cli.command()
+    # def dropdb():
+    #     db.drop_all()
 
     from application.routes import routes as routes_blueprint
     app.register_blueprint(routes_blueprint)
