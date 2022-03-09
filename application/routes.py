@@ -259,7 +259,7 @@ def view_workout(workout_name):
 
     return render_template('view_workouts.html', list=list, workout_name=workout_name, workouts=workouts)
 
-# create route to delete exercises
+# create route to delete exercises, requires two inputs which I didn't realise you could do, very cool!
 @routes.route('/delete/<int:exercise_ID>/<workout_name>', methods=['GET', 'POST'])
 @login_required
 def delete_workout_exercise(exercise_ID, workout_name):
