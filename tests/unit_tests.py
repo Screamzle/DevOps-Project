@@ -1,4 +1,4 @@
-import unittest
+import pytest
 from flask import abort, url_for
 from flask_testing import TestCase
 from application import create_app, db
@@ -44,6 +44,11 @@ class TestBase(TestCase):
         # Will be called after every test
         db.drop_all()
 
-class TestCRUD(TestBase):
-    
-    def test
+class TestLogin(TestBase):
+
+    def test_login_view(self):
+        '''
+        Test that login is accessible without being logged in
+        '''
+        response = self.client.get(url_for('signup'))
+        self.assertEqual(response.status_code, 200)
