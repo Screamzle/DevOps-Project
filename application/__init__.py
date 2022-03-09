@@ -41,9 +41,6 @@ def create_app():
     def dropdb():
         db.drop_all()
 
-    jinja_env = Environment(extensions=['jinja2.ext.do'])
-    app.jinja_env.add_extension('jinja2.ext.do')
-
     from application.routes import routes as routes_blueprint
     app.register_blueprint(routes_blueprint)
 
