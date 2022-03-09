@@ -9,7 +9,7 @@ services:
       published: 5000
       protocol: tcp
     environment:
-      DATABASE_URI: 'mysql+pymysql://matt:root@sqldb_container:3306/workoutdb'
+      DATABASE_URI: 'mysql+pymysql://matt:root@meh-jenkins-server.uksouth.cloudapp.azure.com:3306/workoutdb'
       MYSQL_ROOT_PASSWORD: root
     networks:
     - my-overlay-network
