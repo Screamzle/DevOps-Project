@@ -26,9 +26,9 @@ def create_app():
     def load_user(user_id):
         return Users.query.get(int(user_id))
 
-    with app.app_context():
-        db.drop_all()
-        db.create_all()
+    # with app.app_context():
+    #     db.drop_all()
+    #     db.create_all()
 
     # flask createdb in terminal to create tables
     @app.cli.command()
@@ -44,6 +44,3 @@ def create_app():
     app.register_blueprint(routes_blueprint)
 
     return app
-
-if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=5000)
