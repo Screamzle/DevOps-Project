@@ -5,41 +5,32 @@ services:
     build: ./
     image: ${DOCKER_HUB_CREDS_USR}/workoutapp:latest
     ports:
-    - target: 5000
-      published: 5000
-      protocol: tcp
+      - '5000:5000'
     environment:
-      DATABASE_URI: mysql+pymysql://matt:root@meh-jenkins-server.uksouth.cloudapp.azure.com:3306/workoutdb
+      DATABASE_URI: mysql+pymysql://matt:root@10.0.2.11:3306/workoutdb
       MYSQL_ROOT_PASSWORD: root
     networks:
-    - my-overlay-network
+      - my-overlay-network
     container_name: workoutapp_compose_container
 
   nginx-compose:
     image: nginx:latest
     ports:
-    - target: 80
-      published: 80
-      protocol: tcp
-    volumes:
+    - '80:80'
     - type: bind
       source: ./nginx/nginx.conf
       target: /etc/nginx/nginx.conf
-    depends_on:
-      - workoutapp-compose
     networks:
-    - my-overlay-network
+      - my-overlay-network
     container_name: nginx_compose_container
   
   mysql-compose:
     build: ./db/
     image: ${DOCKER_HUB_CREDS_USR}/sqldbimage:latest
     ports:
-    - target: 3306
-      published: 3006
-      protocol: tcp
+      - '3306:3306'
     networks:
-    - my-overlay-network
+      - my-overlay-network
     container_name: sqldb_container
 
 volumes:
