@@ -1,7 +1,6 @@
 from flask import Flask, Blueprint
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from jinja2 import Environment
 import uuid
 import os
 
@@ -45,3 +44,6 @@ def create_app():
     app.register_blueprint(routes_blueprint)
 
     return app
+
+if __name__ == "__main__":
+    app.run(debug=True, host='0.0.0.0', port=5000)

@@ -13,6 +13,5 @@ RUN pip3 install -r requirements.txt
 # Expose correct port
 EXPOSE 5000
 # Create an entrypoint
-CMD ["flask", "dropdb"]
-CMD ["flask", "createdb"]
+CMD ["python3", "create.py"]
 CMD ["flask", "run"]
