@@ -27,19 +27,19 @@ def create_app():
     def load_user(user_id):
         return Users.query.get(int(user_id))
 
-    with app.app_context():
-        db.drop_all()
-        db.create_all()
-
-    # flask createdb in terminal to create tables
-    # @app.cli.command()
-    # def createdb():
+    # with app.app_context():
+    #     db.drop_all()
     #     db.create_all()
 
+    # flask createdb in terminal to create tables
+    @app.cli.command()
+    def createdb():
+        db.create_all()
+
     # flask dropdb in terminal to drop tables
-    # @app.cli.command()
-    # def dropdb():
-    #     db.drop_all()
+    @app.cli.command()
+    def dropdb():
+        db.drop_all()
 
     from application.routes import routes as routes_blueprint
     app.register_blueprint(routes_blueprint)
