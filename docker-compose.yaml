@@ -3,6 +3,7 @@ version: "3.8"
 services:
   workoutapp-compose:
     build: ./
+    image: ${DOCKER_HUB_CREDS_USR}/workoutapp:latest
     ports:
     - target: 5000
       published: 5000
@@ -26,6 +27,7 @@ services:
     container_name: nginx_compose_container
   mysql-compose:
     build: ./db/
+    image: ${DOCKER_HUB_CREDS_USR}/sqldbimage:latest
     ports:
     - target: 3306
       published: 3006
