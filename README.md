@@ -98,6 +98,8 @@ Won’t have:
 
 ## A technical description of how the pipeline works.
 
+![Final ERD](CICDpipeline.drawio.png)
+
 ## A report on the success and code coverage of my unit tests.
 
 ## Future Improvements
