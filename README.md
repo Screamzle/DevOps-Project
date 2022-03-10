@@ -111,7 +111,7 @@ The project was tracked using Jira as mentioned above. Five epics were created t
 
 -	As a user, I want to be able to reset my password via email if I’ve forgotten it (20 story points)
 
-## A technical description of how the pipeline works.
+## A technical description of how the pipeline works:
 
 ![CD Pipeline](CICDpipeline.drawio.png)
 
