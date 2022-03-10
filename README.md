@@ -4,7 +4,7 @@
 
 Jira Board: https://mhutt.atlassian.net/jira/software/projects/DP/boards/3
 
-App: http://new-docker-server.uksouth.cloudapp.azure.com:5000/
+App: 
 
 Presentation:
 
