@@ -1,4 +1,4 @@
-# My Workout App Project
+# My Workout App
 
 ## Resources
 
@@ -39,7 +39,7 @@ Initial entity relationship diagram:
 
 ![Initial ERD](ERD.drawio.png)
 
-However, during coding, I realised that an association table would be needed between exercises and workout plans as it is in fact a many-to-many relationship between workout plans and exercises. To expand, each workout plan can have many exercises, but each exercise can also be present in multiple workout plans. Thus, this explains the need for an association table. Similarly, I realised when creating the workout plan user stories that I would need to have a table specifically to manage workout plan names so that each workout plan could be viewed individually and contain only those exercises which related to that workout plan by name as queried from the foreign key workout name.
+However, during coding, I realised that an association table would be needed between exercises and workout plans as it is in fact a many-to-many relationship between workout plans and exercises. To expand, each workout plan can have many exercises, but each exercise can also be present in multiple workout plans. Thus, this explains the need for an association table. Similarly, I realised when creating the workout plan user stories that I would need to have a table specifically to manage workout plan names so that each workout plan could be viewed individually and contain only those exercises which related to that workout plan by name as queried from the foreign key workout name. There is also a one-to-many relationship between users and workout_plans, as each user can have many workout plans.
 
 Final entity relationship diagram:
 
