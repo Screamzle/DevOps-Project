@@ -1,5 +1,5 @@
 # Use mysql 8.0
-FROM mysql:8.0
+FROM mysql:5.7
 # Add a database and root password
 ENV MYSQL_DATABASE=workoutdb
 ENV MYSQL_USER=matt

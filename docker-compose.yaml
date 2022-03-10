@@ -5,15 +5,19 @@ services:
     build: ./
     image: ${DOCKER_HUB_CREDS_USR}/workoutapp:latest
     ports:
-    - '5000:5000'
+    - target: 5000
+      published: 5000
+      protocol: tcp
     environment:
-      DATABASE_URI: mysql+pymysql://matt:root@localhost:3306/workoutdb
+      DATABASE_URI: mysql+pymysql://matt:root@meh-jenkins-server.uksouth.cloudapp.azure.com:3306/workoutdb
       MYSQL_ROOT_PASSWORD: root
 
   nginx-compose:
     image: nginx:latest
     ports:
-    - '80:80'
+    - target: 80
+      published: 80
+      protocol: tcp
     volumes:
     - type: bind
       source: ./nginx/nginx.conf
@@ -23,10 +27,11 @@ services:
     build: ./db/
     image: ${DOCKER_HUB_CREDS_USR}/sqldbimage:latest
     ports:
-    - '3306:3306'
+    - target: 3306
+      published: 3006
+      protocol: tcp
     volumes:
     - workout_volume
-    container_name: sqldb_container
 
 volumes:
   workout_volume:
