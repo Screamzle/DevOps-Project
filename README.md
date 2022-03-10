@@ -114,10 +114,15 @@ This is all carried out using a Jenkins pipeline, whereby each stage is designed
 The stages for my build are as follows:
 
 • Declarative: Checkout SCM - code is pulled from GitHub repo when webhook triggers
+
 • Setup - downloads and installs dependencies if necessary and activates virtual environment, logs into Docker Hub for image push later
+
 • Testing - runs pytest on all unit tests in repository
+
 • Build - runs docker-compose to build container images from docker-compose.yaml 
+
 • Push - pushes newly built containers to Docker Hub
+
 • Deploy - deploys Swarm Stack app and mysql database on two Azure VMs
 
 See below for jenkins build log:
