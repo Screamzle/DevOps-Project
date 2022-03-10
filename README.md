@@ -1,5 +1,5 @@
 # DevOps-Project
 
-![GitHub Dark](ERD.drawio.png)
+![GitHub Light](ERD.drawio.png)
 
 test
