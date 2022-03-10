@@ -1,5 +1,5 @@
 # DevOps-Project
 
-[Initial ERD](ERD.drawio.png)
+![Initial ERD](ERD.drawio.png)
 
 test
