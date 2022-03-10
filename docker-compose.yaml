@@ -14,7 +14,7 @@ services:
     image: nginx:latest
     ports:
     - '80:80'
-    mount:
+    volumes:
     - type: bind
       source: ./nginx/nginx.conf
       target: /etc/nginx/nginx.conf
