@@ -2,11 +2,9 @@
 
 ## The Brief:
 
-You are required to create a write-up for this project in the form of a README file on your repository.
+The following will include:
 
-You need to include:
-
-•	An explanation of your app and how it fulfils the brief.
+•	An explanation of my app and how it fulfils the brief.
 
 •	A technical description of how the application works.
 
