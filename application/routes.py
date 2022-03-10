@@ -107,6 +107,7 @@ def profile():
 
     if changepwform.validate_on_submit():
         user = current_user
+        # hash user password in db
         user.password = generate_password_hash(changepwform.password.data, method='sha256')
         db.session.add(user)
         db.session.commit()
@@ -114,6 +115,7 @@ def profile():
         return redirect(url_for('routes.profile'))
     
     if deleteform.validate_on_submit():
+        # delete all workouts created by user and then delete user
         user = Users.query.filter_by(user_ID=current_user.user_ID).first()
         Workout_Plans.query.filter_by(user_ID=user.user_ID).delete()
         logout_user()
@@ -253,7 +255,8 @@ def view_workout(workout_name):
     if request.method == 'GET':
         
         list = []
-        workouts = Workout_Plans.query.filter_by(workout_name=workout_name).all()
+        # query and filter workouts by name and by current user
+        workouts = Workout_Plans.query.filter_by(workout_name=workout_name).filter_by(user_ID=current_user.user_ID).all()
         for workout in workouts:
             exercise = Exercises.query.get(workout.exercise_ID)
             list.append(exercise)
