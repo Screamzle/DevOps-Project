@@ -28,7 +28,7 @@ services:
     image: ${DOCKER_HUB_CREDS_USR}/sqldbimage:latest
     ports:
     - target: 3306
-      published: 3006
+      published: 3306
       protocol: tcp
     volumes:
     - workout_volume:/var/lib/mysql
