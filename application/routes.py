@@ -115,7 +115,9 @@ def profile():
     
     if deleteform.validate_on_submit():
         user = Users.query.filter_by(user_ID=current_user.user_ID).first()
+        workouts = Workout_Plans.query.filter_by(user_ID=user.user_ID).all()
         logout_user()
+        db.session.delate(workouts)
         db.session.delete(user)
         db.session.commit()
         flash('Account has been deleted!')
