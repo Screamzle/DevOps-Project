@@ -10,11 +10,11 @@ Presentation:
 
 ## The brief:
 
-• Create a monolithic Flask application that serves both the frontend and backend of the application.
+- Create a monolithic Flask application that serves both the frontend and backend of the application.
 
-• The frontend aspect of the app will use HTML templates to serve the web pages that allow the user to perform CRUD functionality with information from the database.
+- The frontend aspect of the app will use HTML templates to serve the web pages that allow the user to perform CRUD functionality with information from the database.
 
-• The backend aspect of the application will use SQLAlchemy to model and integrate with the database.
+- The backend aspect of the application will use SQLAlchemy to model and integrate with the database.
 
 ### An explanation of My Workout App and how it fulfils the brief:
 
@@ -56,48 +56,48 @@ Link to jira board: https://mhutt.atlassian.net/jira/software/projects/DP/boards
 
 ### Must have:
 
-•	As a user, I want to be able to create an account (2 story points)
+-	As a user, I want to be able to create an account (2 story points)
 
-•	As a user, I want to be able to view my account details (2 story points)
+-	As a user, I want to be able to view my account details (2 story points)
 
-•	As a user, I want to be able to delete my account (2 story points)
+-	As a user, I want to be able to delete my account (2 story points)
 
-•	As a user, I want to be able to create an exercise (2 story points)
+-	As a user, I want to be able to create an exercise (2 story points)
 
-•	As a user, I want to be able to view exercises (3 story points)
+-	As a user, I want to be able to view exercises (3 story points)
 
-•	As a user, I want to be able to update an exercise (5 story points)
+-	As a user, I want to be able to update an exercise (5 story points)
 
-•	As a user, I want to be able to delete an exercise (5 story points)
+-	As a user, I want to be able to delete an exercise (5 story points)
 
-•	As a user, I want to be able to create a workout plan (2 story points)
+-	As a user, I want to be able to create a workout plan (2 story points)
 
-•	As a user, I want to be able to add an exercise to a workout plan (3 story points)
+-	As a user, I want to be able to add an exercise to a workout plan (3 story points)
 
-•	As a user, I want to be able to view my workout plan that I've created (8 story points)
+-	As a user, I want to be able to view my workout plan that I've created (8 story points)
 
 
 ### Should have:
 
-•	As a user, I want to be able to log in to my account (8 story points)
+-	As a user, I want to be able to log in to my account (8 story points)
 
-•	As a user, I want to be able to update my account information (5 story points)
+-	As a user, I want to be able to update my account information (5 story points)
 
-•	As a user, I want my passwords to be stored safely as hashes (3 story points)
+-	As a user, I want my passwords to be stored safely as hashes (3 story points)
 
-•	As a user, I want to be able to remove an exercise from a workout plan (5 story points)
+-	As a user, I want to be able to remove an exercise from a workout plan (5 story points)
 
 
 ### Could have:
 
-•	As a user, I want my passwords to be stored as salted hashes (3 story points)
+-	As a user, I want my passwords to be stored as salted hashes (3 story points)
 
 
 ### Won’t have:
 
-•	As a user, I want to be able to add pictures of exercises for reference (13 story points)
+-	As a user, I want to be able to add pictures of exercises for reference (13 story points)
 
-•	As a user, I want to be able to reset my password via email if I’ve forgotten it (20 story points)
+-	As a user, I want to be able to reset my password via email if I’ve forgotten it (20 story points)
 
 ## A technical description of how the pipeline works.
 
@@ -113,19 +113,17 @@ This is all carried out using a Jenkins pipeline, whereby each stage is designed
 
 The stages for my build are as follows:
 
-• Declarative: Checkout SCM - code is pulled from GitHub repo when webhook triggers
+- Declarative: Checkout SCM - code is pulled from GitHub repo when webhook triggers
 
-• Setup - downloads and installs dependencies if necessary and activates virtual environment, logs into Docker Hub for image push later
+- Setup - downloads and installs dependencies if necessary and activates virtual environment, logs into Docker Hub for image push later
 
-• Testing - runs pytest on all unit tests in repository
+- Testing - runs pytest on all unit tests in repository
 
-• Build - runs docker-compose to build container images from docker-compose.yaml 
+- Build - runs docker-compose to build container images from docker-compose.yaml 
 
-• Push - pushes newly built containers to Docker Hub
+- Push - pushes newly built containers to Docker Hub
 
-• Deploy - deploys Swarm Stack app and mysql database on two Azure VMs
-
-See below for jenkins build log:
+- Deploy - deploys Swarm Stack app and mysql database on two Azure VMs
 
 ![pipelinescreenshot](https://user-images.githubusercontent.com/57453458/157740928-189da466-2a55-494a-a53d-c26e2140fa10.jpg)
 
@@ -134,4 +132,5 @@ See below for jenkins build log:
 
 
 ## Future Improvements
-•
+
+-
