@@ -24,7 +24,7 @@ services:
     image: ${DOCKER_HUB_CREDS_USR}/sqldbimage:latest
     ports:
     - '3306:3306'
-    volume:
+    volumes:
     - workout_volume
     container_name: sqldb_container
 
