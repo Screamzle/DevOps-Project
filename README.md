@@ -52,6 +52,18 @@ Similarly, I realised when creating the workout plan user stories that I would n
 
 Link to jira board: https://mhutt.atlassian.net/jira/software/projects/DP/boards/3
 
+The project was tracked using Jira as mentioned above. Five epics were created to help guide development:
+
+- App Setup: basic app set up of file structure and files
+
+- Accounts: user stories for account related processes, e.g. log in, log out
+
+- Exercises: user stories for exercise related processes, e.g. create exercise, update exercise
+
+- Workout Plans: user stories for exercise related processes, e.g. create workout plan, add exercise to workout plan
+
+- Testing: unit tests
+
 ### User stories with MoSCoW Prioritisation
 
 ### Must have:
@@ -125,12 +137,25 @@ The stages for my build are as follows:
 
 - Deploy - deploys Swarm Stack app and mysql database on two Azure VMs
 
+Below is the stage view of the build history:
+
 ![pipelinescreenshot](https://user-images.githubusercontent.com/57453458/157740928-189da466-2a55-494a-a53d-c26e2140fa10.jpg)
 
+## Risk Assessment
 
-## A report on the success and code coverage of my unit tests.
+link to risk assessment document: https://docs.google.com/spreadsheets/d/1Pag4wGeVzmgAjZ8MECAAxV3mnXmgz78rG5Xsoh7VgOM/edit#gid=0
+
+## Unit Testing
 
 
 ## Future Improvements
 
--
+I would like to improve this app in the following ways:
+
+- If possible, it would be nice to include links to short videos of someone demonstrating each exercise as a column in the exercises table
+- I would like to include functionality for adding weights for each set of an exercise as they are added to the workout plan, if applicable. For example, for 5 sets of 8 repetitions of Bench Press with a different weight for each set (55, 60, 65, 70, 75)
+- I would like users to be able to track workouts within the app, such that they can mark exercises as completed and even record how many sets and reps they did at what weight
+- I would like to add a feature for users to add their height and weight, with an option to track weight over time so that they can see how much weight they've gained (if bulking) or lost (if cutting) over a specific time period
+- I would like to show users their BMI based on their height and weight in their profile, perhaps even with body fat percentage for a more accurate BMI
+- I would like to build a system whereby users can reset their password if they have forgotten their login details by entering their email address. This would likely involve building an SMTP server which could be interesting to implement alongside Flask.
+- Add functionality for salted hashed passwords
