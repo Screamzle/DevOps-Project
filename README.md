@@ -1,5 +1,5 @@
 # DevOps-Project
 
-![GitHub Light](ERD.drawio.png)
+![Initial ERD](ERD.drawio.png#gh-light-mode-only)
 
 test
