@@ -56,6 +56,8 @@ Similarly, I realised when creating the workout plan user stories that I would n
 
 ## Project Tracking with the Agile Scrum method using Jira:
 
+![jira](https://user-images.githubusercontent.com/57453458/157890752-c9a29336-837c-481e-8535-529b5ec4ceef.jpg)
+
 Link to jira board: https://mhutt.atlassian.net/jira/software/projects/DP/boards/3
 
 The project was tracked using Jira as mentioned above. Five epics were created to help guide development:
