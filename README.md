@@ -127,19 +127,31 @@ This is all carried out using a Jenkins pipeline, whereby each stage is designed
 
 ![deploymentlog](https://user-images.githubusercontent.com/57453458/157741143-4a6bf0f5-937f-4de9-8f63-a80ced8b2659.jpg)
 
-The stages for my build are as follows:
+## The stages for my build are as follows:
 
 - Declarative: Checkout SCM - code is pulled from GitHub repo when webhook triggers
 
+![SCM2](https://user-images.githubusercontent.com/57453458/157870354-3097fb05-ea13-42e7-be48-242726e1c991.jpg)
+
 - Setup - downloads and installs dependencies if necessary and activates virtual environment, logs into Docker Hub for image push later
+
+![setup](https://user-images.githubusercontent.com/57453458/157870488-a6d9b2ad-2a42-4b7b-b259-2534958b1739.jpg)
 
 - Testing - runs pytest on all unit tests in repository
 
+![test](https://user-images.githubusercontent.com/57453458/157870570-86a5c033-fc7d-4502-b397-77de0e140f21.jpg)
+
 - Build - runs docker-compose to build container images from docker-compose.yaml 
+
+![build](https://user-images.githubusercontent.com/57453458/157869956-96f49315-1c55-4435-b7b9-9ca541d69fea.jpg)
 
 - Push - pushes newly built containers to Docker Hub
 
+![push](https://user-images.githubusercontent.com/57453458/157870047-1d9b115e-e459-4359-a985-3f2142b63b60.jpg)
+
 - Deploy - deploys Swarm Stack app and mysql database on two Azure VMs
+
+![deploy](https://user-images.githubusercontent.com/57453458/157870162-def5808b-e6dc-4273-9436-26093ac9d16d.jpg)
 
 Below is the stage view of the build history:
 
@@ -147,7 +159,13 @@ Below is the stage view of the build history:
 
 ## Risk Assessment
 
+A comprehensive risk assessment was carried out to ascertain probability of risks, their level of impact, and how the current design mitigates these risks. If no mitigation is currently implemented or the mitigation is lacking, new measures are proposed with an explanation of how to respond to each risk in the event that it occurs.
+
 link to risk assessment document: https://docs.google.com/spreadsheets/d/1Pag4wGeVzmgAjZ8MECAAxV3mnXmgz78rG5Xsoh7VgOM/edit#gid=0
+
+Here is a picture to demonstrate the layout of the document:
+
+![risk_assessment](https://user-images.githubusercontent.com/57453458/157871337-0e8d8f0a-9adf-4e02-bffc-80508175eae6.jpg)
 
 ## Unit Testing
 
