@@ -155,7 +155,7 @@ This is all carried out using a Jenkins pipeline, whereby each stage is designed
 
 - Post-Build Stage - JUnit pytest result publishing
 
-![junit](https://user-images.githubusercontent.com/57453458/157880152-a9c53757-0714-4fee-9d93-b9a5d474a700.jpg)
+![Screenshot 2022-03-11 135552](https://user-images.githubusercontent.com/57453458/157881325-802f778b-d219-4ff1-9a0a-8da30095a4ab.jpg)
 
 Below is the stage view of the build history:
 
