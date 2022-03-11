@@ -18,7 +18,11 @@ Presentation: https://drive.google.com/file/d/1xljQow6f47StX0j4zAMjwfSz-w8vYFoH/
 
 ### An explanation of My Workout App and how it fulfils the brief:
 
-My app allows users to build personalised workout plans from a database of exercises. They can create an account and they can log in to their account. On their account page, they can view or change their details and delete their account. Once logged in they can see all exercises in the database, with the option to update or delete each exercise in the form of a button. Users can also add their own exercises. Users can create a workout plan and add exercises from the exercise database to their workout plan. They can view exercises contained in each workout plan they create by selecting its name and for each exercise in that workout plan they have the option to delete that exercise from the workout plan. Workout plans are specific to the logged in user, so users cannot see other users' workout plans.
+My app allows users to build personalised workout plans from a database of exercises. They can create an account and they can log in to their account. On their account page, they can view or change their details and delete their account. 
+
+Once logged in they can see all exercises in the database, with the option to update or delete each exercise in the form of a button. Users can also add their own exercises. Users can create a workout plan and add exercises from the exercise database to their workout plan. 
+
+They can view exercises contained in each workout plan they create by selecting its name and for each exercise in that workout plan they have the option to delete that exercise from the workout plan. Workout plans are specific to the logged in user, so users cannot see other users' workout plans.
 
 ### A technical explanation of my app:
 
@@ -147,6 +151,13 @@ link to risk assessment document: https://docs.google.com/spreadsheets/d/1Pag4wG
 
 ## Unit Testing
 
+Testing was somewhat problematic due to the log-in system. I could not find a way to replicate the log-in process within the testing context, so had to disable this functionality in order to get tests to pass. This meant that I could not properly test any of the login functionality, e.g. logging in, logging out, but this also meant that I could not test functions which required the id of the currently logged in user. This affected functions such as adding an exercise to a workout plan, as each workout plan is specific to the currently logged in user.
+
+Despite this, I managed to get test coverage up to 77%, which all things considered is satisfactory. Going forward, I would need to further research and understand the flask login manager and how it is called in testing contexts in order to implement authentication testing.
+
+Moreover, I experienced issues trying to test update and delete functionality across the board. Tests were written in line with standard CRUD testing procedure for Flask Apps, but for some reason these functions were still missing from the coverage report. I could not find a satisfactory reason for this.
+
+![image](https://user-images.githubusercontent.com/57453458/157857622-d513b460-ade0-4134-a643-3b3e07fe5457.png)
 
 ## Future Improvements
 
