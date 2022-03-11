@@ -184,12 +184,12 @@ Moreover, I experienced issues trying to test update and delete functionality ac
 
 ## Future Improvements
 
-I would like to improve this app in the following ways:
+I would like to improve my app in the following ways:
 
 - If possible, it would be nice to include links to short videos of someone demonstrating each exercise as a column in the exercises table
-- I would like to include functionality for adding weights for each set of an exercise as they are added to the workout plan, if applicable. For example, for 5 sets of 8 repetitions of Bench Press with a different weight for each set (55, 60, 65, 70, 75)
-- I would like users to be able to track workouts within the app, such that they can mark exercises as completed and even record how many sets and reps they did at what weight
-- I would like to add a feature for users to add their height and weight, with an option to track weight over time so that they can see how much weight they've gained (if bulking) or lost (if cutting) over a specific time period
-- I would like to show users their BMI based on their height and weight in their profile, perhaps even with body fat percentage for a more accurate BMI
+- Include functionality for adding weights for each set of an exercise as they are added to the workout plan, if applicable. For example, creating 5 sets of 8 repetitions of Bench Press with a different weight for each set (55, 60, 65, 70, 75)
+- Users should be able to track past workouts within the app, such that they can mark exercises as completed and even record how many sets and reps they did and at what weight
+- Add a feature for users to add their height and weight, with an option to track weight over time so that they can see how much weight they've gained (if bulking) or lost (if cutting) over a specific time period
+- I would like to show users their BMI based on their height and weight in their profile, perhaps even with the option to add body fat percentage for a more accurate BMI
 - I would like to build a system whereby users can reset their password if they have forgotten their login details by entering their email address. This would likely involve building an SMTP server which could be interesting to implement alongside Flask.
 - Add functionality for salted hashed passwords
