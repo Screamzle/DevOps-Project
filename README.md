@@ -72,6 +72,8 @@ The project was tracked using Jira as mentioned above. Five epics were created t
 
 - Testing: unit tests
 
+Issues were progressed and commented using smart commits by linking Jira with GitHub.
+
 ### User stories with MoSCoW Prioritisation
 
 ### Must have:
