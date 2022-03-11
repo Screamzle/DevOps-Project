@@ -153,9 +153,13 @@ This is all carried out using a Jenkins pipeline, whereby each stage is designed
 
 ![deploy](https://user-images.githubusercontent.com/57453458/157870162-def5808b-e6dc-4273-9436-26093ac9d16d.jpg)
 
+- Post-Build Stage - JUnit pytest result publishing
+
+![junit](https://user-images.githubusercontent.com/57453458/157880152-a9c53757-0714-4fee-9d93-b9a5d474a700.jpg)
+
 Below is the stage view of the build history:
 
-![pipelinescreenshot](https://user-images.githubusercontent.com/57453458/157740928-189da466-2a55-494a-a53d-c26e2140fa10.jpg)
+![stages](https://user-images.githubusercontent.com/57453458/157880340-f347bc1e-a0af-43aa-9301-d90c377d04b4.jpg)
 
 ## Risk Assessment
 
