@@ -1,12 +1,14 @@
 # My Workout App
 
+![design](https://user-images.githubusercontent.com/57453458/157882971-892cfd2f-80aa-4bb4-99c3-30315d776f89.jpg)
+
 ## Resources
 
 Jira Board: https://mhutt.atlassian.net/jira/software/projects/DP/boards/3
 
 App: http://new-docker-server.uksouth.cloudapp.azure.com:5000/
 
-Presentation: https://drive.google.com/file/d/1xljQow6f47StX0j4zAMjwfSz-w8vYFoH/view?usp=sharing
+Presentation: 
 
 ## The brief:
 
@@ -153,9 +155,13 @@ This is all carried out using a Jenkins pipeline, whereby each stage is designed
 
 ![deploy](https://user-images.githubusercontent.com/57453458/157870162-def5808b-e6dc-4273-9436-26093ac9d16d.jpg)
 
+- Post-Build Stage - JUnit pytest result publishing
+
+![Screenshot 2022-03-11 135552](https://user-images.githubusercontent.com/57453458/157881325-802f778b-d219-4ff1-9a0a-8da30095a4ab.jpg)
+
 Below is the stage view of the build history:
 
-![pipelinescreenshot](https://user-images.githubusercontent.com/57453458/157740928-189da466-2a55-494a-a53d-c26e2140fa10.jpg)
+![stages](https://user-images.githubusercontent.com/57453458/157880340-f347bc1e-a0af-43aa-9301-d90c377d04b4.jpg)
 
 ## Risk Assessment
 
@@ -180,12 +186,14 @@ Moreover, I experienced issues trying to test update and delete functionality ac
 
 ## Future Improvements
 
-I would like to improve this app in the following ways:
+I would like to improve my app in the following ways:
 
-- If possible, it would be nice to include links to short videos of someone demonstrating each exercise as a column in the exercises table
-- I would like to include functionality for adding weights for each set of an exercise as they are added to the workout plan, if applicable. For example, for 5 sets of 8 repetitions of Bench Press with a different weight for each set (55, 60, 65, 70, 75)
-- I would like users to be able to track workouts within the app, such that they can mark exercises as completed and even record how many sets and reps they did at what weight
-- I would like to add a feature for users to add their height and weight, with an option to track weight over time so that they can see how much weight they've gained (if bulking) or lost (if cutting) over a specific time period
-- I would like to show users their BMI based on their height and weight in their profile, perhaps even with body fat percentage for a more accurate BMI
+- Currently, when editing details, usernames and email addresses are not cross-referenced with existing usernames and passwords in the database. If a username already exits under a different user id, the Werkzeug debugger is exposed. A query of existing usernames and passwords with an if condition would correct this issue.
+- If possible, it would be nice to include links to short videos of someone demonstrating each exercise as a column in the exercises table. Failing this, I'd like to include pictorial representations of each exercise which show up from the database when an exercise is viewed in either the exercise view or workout plan view.
+- It would also make sense to move the repetitions and sets from the exercise table to the workout plan table, so that multiple exercises do not need to be created with different rep schemes. This way, an exercise could be selected and then customised within the workout plan which would allow for great customisation of exercises.
+- Functionality should be included for adding weights for each set of an exercise as they are added to the workout plan, if applicable. For example, creating 5 sets of 8 repetitions of Bench Press with a different weight for each set (55, 60, 65, 70, 75)
+- Users should be able to track past workouts within the app, such that they can mark exercises as completed and even record how many sets and reps they did and at what weight
+- A feature could be added for users to add their height and weight, with an option to track weight over time so that they can see how much weight they've gained (if bulking) or lost (if cutting) over a specific time period
+- I would like to show users their BMI based on their height and weight in their profile, perhaps even with the option to add body fat percentage for a more accurate BMI
 - I would like to build a system whereby users can reset their password if they have forgotten their login details by entering their email address. This would likely involve building an SMTP server which could be interesting to implement alongside Flask.
 - Add functionality for salted hashed passwords
