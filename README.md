@@ -200,3 +200,4 @@ I would like to improve my app in the following ways:
 - I would like to show users their BMI based on their height and weight in their profile, perhaps even with the option to add body fat percentage for a more accurate BMI
 - I would like to build a system whereby users can reset their password if they have forgotten their login details by entering their email address. This would likely involve building an SMTP server which could be interesting to implement alongside Flask.
 - Add functionality for salted hashed passwords for extra security in the event of a database breach
+- Views should be split into separate blueprints for each type of operation. For example, there should be a blueprint for authentication views, a blueprint for exercise views, and a final blueprint for workout views. As it stands, the routes file was very long and became troublesome to navigate.
