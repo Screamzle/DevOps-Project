@@ -4,9 +4,9 @@ pipeline {
         DOCKER_HUB_CREDS = credentials('DOCKER_HUB_CREDS')
         DATABASE_URI = credentials('DATABASE_URI')
         MYSQL_DATABASE = credentials('MYSQL_DATABASE')
-        MYSQL_ROOT_PASSWORD = credentials("MYSQL_DATABASE")
-        MYSQL_PASSWORD = credentials("MYSQL_DATABASE")
-        MYSQL_USER = credentials("MYSQL_DATABASE")
+        MYSQL_ROOT_PASSWORD = credentials("MYSQL_ROOT_PASSWORD")
+        MYSQL_PASSWORD = credentials("MYSQL_PASSWORD")
+        MYSQL_USER = credentials("MYSQL_USER")
     }
     stages {
         stage('Setup') {
