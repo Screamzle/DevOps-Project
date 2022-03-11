@@ -127,7 +127,7 @@ This is all carried out using a Jenkins pipeline, whereby each stage is designed
 
 ![deploymentlog](https://user-images.githubusercontent.com/57453458/157741143-4a6bf0f5-937f-4de9-8f63-a80ced8b2659.jpg)
 
-The stages for my build are as follows:
+## The stages for my build are as follows:
 
 - Declarative: Checkout SCM - code is pulled from GitHub repo when webhook triggers
 
