@@ -131,15 +131,15 @@ The stages for my build are as follows:
 
 - Declarative: Checkout SCM - code is pulled from GitHub repo when webhook triggers
 
-![SCM](https://user-images.githubusercontent.com/57453458/157869507-7eab80d5-f5fa-4d20-b051-4f34e3df3704.jpg)
+![SCM2](https://user-images.githubusercontent.com/57453458/157870354-3097fb05-ea13-42e7-be48-242726e1c991.jpg)
 
 - Setup - downloads and installs dependencies if necessary and activates virtual environment, logs into Docker Hub for image push later
 
-![setup](https://user-images.githubusercontent.com/57453458/157869656-2b859bc5-1f02-4632-b46a-a2fb2161830d.jpg)
+![setup](https://user-images.githubusercontent.com/57453458/157870488-a6d9b2ad-2a42-4b7b-b259-2534958b1739.jpg)
 
 - Testing - runs pytest on all unit tests in repository
 
-![Screenshot 2022-03-11 124946](https://user-images.githubusercontent.com/57453458/157869762-6deed13c-17eb-413f-b997-736aa7c890bf.jpg)
+![test](https://user-images.githubusercontent.com/57453458/157870570-86a5c033-fc7d-4502-b397-77de0e140f21.jpg)
 
 - Build - runs docker-compose to build container images from docker-compose.yaml 
 
