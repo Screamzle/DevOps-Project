@@ -4,9 +4,9 @@
 
 Jira Board: https://mhutt.atlassian.net/jira/software/projects/DP/boards/3
 
-App: 
+App: http://new-docker-server.uksouth.cloudapp.azure.com:5000/
 
-Presentation:
+Presentation: https://drive.google.com/file/d/1xljQow6f47StX0j4zAMjwfSz-w8vYFoH/view?usp=sharing
 
 ## The brief:
 
@@ -111,7 +111,7 @@ The project was tracked using Jira as mentioned above. Five epics were created t
 
 -	As a user, I want to be able to reset my password via email if I’ve forgotten it (20 story points)
 
-## A technical description of how the pipeline works.
+## A technical description of how the pipeline works:
 
 ![CD Pipeline](CICDpipeline.drawio.png)
 
