@@ -9,7 +9,7 @@ services:
       published: 5000
       protocol: tcp
     environment:
-      DATABASE_URI: mysql+pymysql://matt:root@workoutapp-stack_mysql-compose:3306/workoutdb
+      DATABASE_URI: ${DATABASE_URI}
       MYSQL_ROOT_PASSWORD: root
 
   nginx-compose:
