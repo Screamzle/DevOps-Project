@@ -159,6 +159,8 @@ Below is the stage view of the build history:
 
 ## Risk Assessment
 
+A comprehensive risk assessment was carried out to ascertain probability of risks, their level of impact, and how the current design mitigates these risks. If no mitigation is currently implemented or the mitigation is lacking, new measures are proposed with an explanation of how to respond to each risk in the event that it occurs.
+
 link to risk assessment document: https://docs.google.com/spreadsheets/d/1Pag4wGeVzmgAjZ8MECAAxV3mnXmgz78rG5Xsoh7VgOM/edit#gid=0
 
 Here is a picture to demonstrate the layout of the document:
