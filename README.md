@@ -48,7 +48,7 @@ I initially thought that only three tables would be required to fulfil the brief
 
 However, during coding, I realised that an association table would be needed between exercises and workout plans as it is in fact a many-to-many relationship between workout plans and exercises. To expand, each workout plan can have many exercises, but each exercise can also be present in multiple workout plans. Thus, explaining the need for an association table. 
 
-Similarly, I realised when creating the workout plan user stories that I would need to have a table specifically to manage workout plan names so that each workout plan could be viewed individually. This also meant that I could code the app to contain only those exercises in that specific workout plan as queried by the foreign key workout name. There is also a one-to-many relationship between users and workout plans, as each user can have many workout plans but each workout plan can only have one user.
+Similarly, I realised when coding the workout plan views that I would need to have a table specifically to manage workout plan names so that each workout plan could be viewed individually. This also meant that I could code the workout plan view to contain only those exercises in that specific workout plan as queried by the foreign key workout name. There is also a one-to-many relationship between users and workout plans, as each user can have many workout plans but each workout plan can only have one user.
 
 ### Final entity relationship diagram:
 
@@ -127,7 +127,7 @@ Issues were progressed and commented using smart commits by linking Jira with Gi
 
 The image above combines the continuous integration/continuous deployment process with the infrastructure diagram of the cloud network resources utilised, showing how source code located on a local machine is progressed into a fully functioning app deployed in a Docker Swarm Stack hosted on virtual machines. 
 
-The source code is pushed from the local machine (in this case actually a VM connected to via openSSH using VS Code) to GitHub, our version control system and code repository. A webhook has been set up so that whenever code is pushed to GitHub, a jenkins server located on an Azure VM is alerted to start the code integration process. It will set up the build environment and download and install the necessary dependencies and requirements. At this point, pytest unit tests are automatically carried out to ensure the app is functioning as intended. A testing log is produced.
+The source code is pushed from the local machine (in this case actually a VM connected to via openSSH using VS Code on a local Windows machine) to GitHub, our version control system and code repository. A webhook has been set up so that whenever code is pushed to GitHub, a jenkins server located on an Azure VM is alerted to start the code integration process. It will set up the build environment and download and install the necessary dependencies and requirements. At this point, pytest unit tests are automatically carried out to ensure the app is functioning as intended. A testing log is produced.
 
 This is all carried out using a Jenkins pipeline, whereby each stage is designed separately and executed consecutively. If a stage within the pipeline fails, the job will also fail and no further stages will be carried out. A comprehensive log of information is produced for each stage showing the commands and their output as they are executed. If a job does fail, the output will usually help one to ascertain the likely cause for the failure so that it can be remedied. Below is an example of the log from a successful build:
 
@@ -187,17 +187,16 @@ Moreover, I experienced issues trying to test update and delete functionality ac
 
 ![image](https://user-images.githubusercontent.com/57453458/157857622-d513b460-ade0-4134-a643-3b3e07fe5457.png)
 
-
 ## Future Improvements
 
 I would like to improve my app in the following ways:
 
 - Currently, when editing details, usernames and email addresses are not cross-referenced with existing usernames and passwords in the database. If a username already exits under a different user id, the Werkzeug debugger is exposed. A query of existing usernames and passwords with an if condition would correct this issue.
 - If possible, it would be nice to include links to short videos of someone demonstrating each exercise as a column in the exercises table. Failing this, I'd like to include pictorial representations of each exercise which show up from the database when an exercise is viewed in either the exercise view or workout plan view.
-- It would also make sense to move the repetitions and sets from the exercise table to the workout plan table, so that multiple exercises do not need to be created with different rep schemes. This way, an exercise could be selected and then customised within the workout plan which would allow for great customisation of exercises.
-- Functionality should be included for adding weights for each set of an exercise as they are added to the workout plan, if applicable. For example, creating 5 sets of 8 repetitions of Bench Press with a different weight for each set (55, 60, 65, 70, 75)
+- It would also make sense to move the repetitions and sets from the exercise table to the workout plan table, so that multiple exercises do not need to be created with different rep schemes. This way, an exercise could be selected and then customised within the workout plan which would allow for greater customisation of exercises.
+- Functionality should be included for adding weights for each set of an exercise as they are added to the workout plan, if applicable. For example, creating 5 sets of 8 repetitions of Bench Press with a different weight for each set (55KG, 60KG, 65KG, 70KG, 75KG). It might be even be nice to allow to users to have different numbers of reps for each set as well as different weights.
 - Users should be able to track past workouts within the app, such that they can mark exercises as completed and even record how many sets and reps they did and at what weight
 - A feature could be added for users to add their height and weight, with an option to track weight over time so that they can see how much weight they've gained (if bulking) or lost (if cutting) over a specific time period
 - I would like to show users their BMI based on their height and weight in their profile, perhaps even with the option to add body fat percentage for a more accurate BMI
 - I would like to build a system whereby users can reset their password if they have forgotten their login details by entering their email address. This would likely involve building an SMTP server which could be interesting to implement alongside Flask.
-- Add functionality for salted hashed passwords
+- Add functionality for salted hashed passwords for extra security in the event of a database breach
