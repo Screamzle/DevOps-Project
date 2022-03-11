@@ -12,7 +12,6 @@ pipeline {
         stage('Testing') {
 	        steps {
 	    	    sh "bash jenkins/test.sh"
-                junit 'junit_report.xml'
                 }
             }
         }
