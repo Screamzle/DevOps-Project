@@ -11,8 +11,8 @@ pipeline {
         }
         stage('Testing') {
 	        steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-	    	        sh "bash jenkins/test.sh"
+	    	    sh "bash jenkins/test.sh"
+                junit 'junit_report.xml'
                 }
             }
         }
