@@ -1,5 +1,7 @@
 # My Workout App
 
+![design](https://user-images.githubusercontent.com/57453458/157882971-892cfd2f-80aa-4bb4-99c3-30315d776f89.jpg)
+
 ## Resources
 
 Jira Board: https://mhutt.atlassian.net/jira/software/projects/DP/boards/3
