@@ -42,7 +42,7 @@ I initially thought that only three tables would be required to fulfil the brief
 
 However, during coding, I realised that an association table would be needed between exercises and workout plans as it is in fact a many-to-many relationship between workout plans and exercises. To expand, each workout plan can have many exercises, but each exercise can also be present in multiple workout plans. Thus, explaining the need for an association table. 
 
-Similarly, I realised when creating the workout plan user stories that I would need to have a table specifically to manage workout plan names so that each workout plan could be viewed individually. This also meant that I could codee the app to contain only those exercises in that specific workout plan as queried by the foreign key workout name. There is also a one-to-many relationship between users and workout plans, as each user can have many workout plans but each workout plan can only have one user.
+Similarly, I realised when creating the workout plan user stories that I would need to have a table specifically to manage workout plan names so that each workout plan could be viewed individually. This also meant that I could code the app to contain only those exercises in that specific workout plan as queried by the foreign key workout name. There is also a one-to-many relationship between users and workout plans, as each user can have many workout plans but each workout plan can only have one user.
 
 ### Final entity relationship diagram:
 
