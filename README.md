@@ -18,7 +18,7 @@ Presentation: https://drive.google.com/file/d/16x0XALmlAaH05IKFOJx2sXL5TEfGWzPA/
 
 - The backend aspect of the application will use SQLAlchemy to model and integrate with the database.
 
-### An explanation of My Workout App and how it fulfils the brief:
+### An explanation of My Workout App:
 
 My app allows users to build personalised workout plans from a database of exercises. They can create an account and they can log in to their account. On their account page, they can view or change their details and delete their account. 
 
@@ -26,7 +26,7 @@ Once logged in they can see all exercises in the database, with the option to up
 
 They can view exercises contained in each workout plan they create by selecting its name and for each exercise in that workout plan they have the option to delete that exercise from the workout plan. Workout plans are specific to the logged in user, so users cannot see other users' workout plans.
 
-### A technical explanation of my app:
+### A technical explanation of my app and how it fulfils the brief:
 
 My Workout App is a monolithic Flask application factory serving both the frontend and backend of the application. It uses HTML templates to serve web pages with forms that allow the user to create an account (satisfies 'Create'), log in to that account with their email address and password (satisfies 'Read'), change their account details (including password, username and email address - satisfies 'Update'), and delete their account (satisfies 'Delete') by clicking buttons that call functions which query the attached mysql database and then perform said CRUD functions. Passwords are stored as hashes (SHA256) and passwords entered at the login page are hashed and then compared to hashes stored in the database for that user.
 
