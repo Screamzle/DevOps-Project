@@ -131,15 +131,27 @@ The stages for my build are as follows:
 
 - Declarative: Checkout SCM - code is pulled from GitHub repo when webhook triggers
 
+![SCM](https://user-images.githubusercontent.com/57453458/157869507-7eab80d5-f5fa-4d20-b051-4f34e3df3704.jpg)
+
 - Setup - downloads and installs dependencies if necessary and activates virtual environment, logs into Docker Hub for image push later
+
+![setup](https://user-images.githubusercontent.com/57453458/157869656-2b859bc5-1f02-4632-b46a-a2fb2161830d.jpg)
 
 - Testing - runs pytest on all unit tests in repository
 
+![Screenshot 2022-03-11 124946](https://user-images.githubusercontent.com/57453458/157869762-6deed13c-17eb-413f-b997-736aa7c890bf.jpg)
+
 - Build - runs docker-compose to build container images from docker-compose.yaml 
+
+![build](https://user-images.githubusercontent.com/57453458/157869956-96f49315-1c55-4435-b7b9-9ca541d69fea.jpg)
 
 - Push - pushes newly built containers to Docker Hub
 
+![push](https://user-images.githubusercontent.com/57453458/157870047-1d9b115e-e459-4359-a985-3f2142b63b60.jpg)
+
 - Deploy - deploys Swarm Stack app and mysql database on two Azure VMs
+
+![deploy](https://user-images.githubusercontent.com/57453458/157870162-def5808b-e6dc-4273-9436-26093ac9d16d.jpg)
 
 Below is the stage view of the build history:
 
