@@ -161,6 +161,10 @@ Below is the stage view of the build history:
 
 link to risk assessment document: https://docs.google.com/spreadsheets/d/1Pag4wGeVzmgAjZ8MECAAxV3mnXmgz78rG5Xsoh7VgOM/edit#gid=0
 
+Here is a picture to demonstrate the layout of the document:
+
+![risk_assessment](https://user-images.githubusercontent.com/57453458/157871337-0e8d8f0a-9adf-4e02-bffc-80508175eae6.jpg)
+
 ## Unit Testing
 
 Testing was somewhat problematic due to the log-in system. I could not find a way to replicate the log-in process within the testing context, so had to disable this functionality in order to get tests to pass. This meant that I could not properly test any of the login functionality, e.g. logging in, logging out, but this also meant that I could not test functions which required the id of the currently logged in user. This affected functions such as adding an exercise to a workout plan, as each workout plan is specific to the currently logged in user.
