@@ -6,15 +6,16 @@ from application import create_app, db
 from application.models import Users, Exercises, Workout_Plans, Workout_Names
 
 class TestBase(TestCase):
-    
+
     def create_app(self):
         app = create_app()
         app.config.update({
-            'SQLALCHEMY_DATABASE_URI': 'sqlite:///:memory:',
+            'SQLALCHEMY_DATABASE_URI': 'sqlite:///',
             'SQLALCHEMY_TRACK_MODIFICATIONS': False,
             'WTF_CSRF_ENABLED': False,
             'LOGIN_DISABLED': True,
         })
+        db.init_app(app)
         return app
 
     def setUp(self):
@@ -55,6 +56,7 @@ class TestBase(TestCase):
         db.session.remove()
         db.drop_all()
 
+
 class TestViews(TestBase):
 
     # Test whether we get a successful response from our routes
@@ -72,6 +74,7 @@ class TestViews(TestBase):
 
     def test_profile_view(self):
         response = self.client.get(url_for('routes.profile'))
+        # cannot log in, leads to internal server error
         self.assertStatus(response, 500)
 
     def test_logout_view(self):
@@ -94,6 +97,7 @@ class TestViews(TestBase):
         response = self.client.get(url_for('routes.add_workout_exercise'))
         self.assert200(response)
 
+
 class TestRead(TestBase):
 
     def test_workout(self):
@@ -105,6 +109,7 @@ class TestRead(TestBase):
         self.assertIn('Bench', str(response.data))
 
     def test_false_login(self):
+        # fails because client can't process login information
         response = self.client.post(
             url_for('routes.signup'),
             data = dict(email_address="eric@eric.com", 
@@ -148,7 +153,6 @@ class TestCreate(TestBase):
         user = Users.query.filter_by(user_name='admin').first()
         self.assert200(response)
 
-
     def test_add_exercise(self):
         response = self.client.post(
             url_for('routes.add_exercise'),
@@ -170,9 +174,10 @@ class TestCreate(TestBase):
             data = dict(workout_name = '531 BBB'),
             follow_redirects=True
         )
-        workout = Workout_Names.query.filter_by(workout_name='PPL').first()
-        self.assertEqual('PPL', workout.workout_name)
+        workout = Workout_Names.query.filter_by(workout_name='531 BBB').first()
+        self.assertEqual('531 BBB', workout.workout_name)
 
+    # fails because user is AnonymousUser due to login issue
     def test_add_workout_exercise(self):
         response = self.client.post(
             url_for('routes.add_workout_exercise'),
@@ -192,13 +197,32 @@ def TestUpdate(TestBase):
 
     def test_update_exercise(self):
         response = self.client.post(
-            url_for('routes.add_workout_exercise'),
-            data = dict(workout_name='BBB'),
+            url_for('routes.update_exercise', exercise_name='Bench'),
+            data = dict(exercise_name='Deadlift',
+                repetitions=1,
+                sets=1
+            ),
             follow_redirects=True
         )
-    self.assertIn(b'Exercise Name: ', response.data)
+        exercise = Exercises.query.filter_by(exercise_name='Deadlift').first()
+        self.assertEqual('Deadlift', exercise.exercise_name)
 
-# def TestDelete(TestBase):
+def TestDelete(TestBase):
 
-#     def test_delete_workout_exercise(self):
-#         response = self.client.post(
+    # fails because current_user is Anonymous User
+    def test_delete_user(self):
+        response = self.client.post(
+            url_for('routes.profile'),
+            data = dict(user_ID=1),
+            follow_redirects=True
+        )
+        user = Users.query.get(1)
+        self.assertNotIn(1, user.user_ID)
+
+    def test_delete_exercise(self):
+        response = self.client.post(
+            url_for('routes.delete_exercise', exercise_name="Bench"),
+            follow_redirects=True
+        )
+        self.assertNotIn("Bench", str(response.data))
+ 
