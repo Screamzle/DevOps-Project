@@ -10,9 +10,8 @@ pipeline {
             }
         }
         stage('Testing') {
-	        steps {
+	        steps { 
 	    	    sh "bash jenkins/test.sh"
-                }
             }
         }
         stage('Build') {
